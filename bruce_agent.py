@@ -16,6 +16,7 @@ from pathlib import Path
 from bruce_identity import BruceIdentity, BRUCE_SYSTEM_PROMPT
 from micro_agent_factory import MicroAgentFactory
 from adaptive_learning import AdaptiveLearningEngine
+from bruce_autonomy import AutonomousPlanner, SelfMonitor, SelfImprover, ProactiveIntelligence
 
 logger = logging.getLogger("Bruce.Agent")
 
@@ -28,6 +29,12 @@ class BruceAgent:
         self.identity = BruceIdentity()
         self.factory = MicroAgentFactory()
         self.learning = AdaptiveLearningEngine()
+
+        # Autonomy systems
+        self.planner = AutonomousPlanner()
+        self.monitor = SelfMonitor()
+        self.improver = SelfImprover(self.learning)
+        self.intel = ProactiveIntelligence()
 
         # LLM connection
         self._llm_fn = None
@@ -42,6 +49,7 @@ class BruceAgent:
         # Initialize
         self._connect_llm()
         self._spawn_default_agents()
+        self._setup_default_watchers()
 
         logger.info(f"Bruce Agent initialized | LLM: {self._llm_name} | Status: {self.identity.status}")
 
@@ -79,6 +87,15 @@ class BruceAgent:
             self.factory.spawn_default_team()
         except Exception as e:
             logger.warning(f"Could not spawn default team: {e}")
+
+    def _setup_default_watchers(self):
+        """Set up proactive intelligence watchers."""
+        try:
+            self.intel.add_watcher("High Error Rate", "error_rate > 20", "Alert Federico and run self-diagnostics")
+            self.intel.add_watcher("Slow Response", "avg_response_ms > 10000", "Consider switching to lighter model")
+            self.intel.add_watcher("Memory Full", "memory_usage > 90", "Prune old memories and optimize")
+        except Exception:
+            pass
 
     # =========================================================================
     # Main Interface — Talk to Bruce
@@ -306,6 +323,58 @@ class BruceAgent:
             "total_facts": self.learning.domain_knowledge["total_facts"],
         }
 
+    # =========================================================================
+    # Autonomous Planning — Bruce sets and pursues his own goals
+    # =========================================================================
+
+    def set_goal(self, title: str, description: str, priority: str = "medium") -> dict:
+        """Bruce sets a goal for himself."""
+        goal = self.planner.set_goal(title, description, priority)
+        self.learning.log_decision(f"Set goal: {title}", description)
+        return goal
+
+    def plan_and_execute(self, goal_id: str, steps: List[str], execute: bool = True) -> dict:
+        """Create a plan for a goal and optionally execute it."""
+        plan = self.planner.create_plan(goal_id, steps)
+        if execute:
+            return self.planner.execute_plan(plan["id"], self._llm_fn)
+        return plan
+
+    def get_goals(self) -> List[dict]:
+        """Get all active goals."""
+        return self.planner.get_active_goals()
+
+    # =========================================================================
+    # Proactive Intelligence — Bruce watches and alerts
+    # =========================================================================
+
+    def add_watcher(self, name: str, condition: str, action: str) -> dict:
+        """Add a proactive watcher."""
+        return self.intel.add_watcher(name, condition, action)
+
+    def check_intel(self, state: dict = None) -> List[dict]:
+        """Check all watchers against current state."""
+        if state is None:
+            health = self.monitor.health_check()
+            state = {
+                "error_rate": 100 - health.get("success_rate", 100),
+                "avg_response_ms": health.get("avg_response_ms", 0),
+                "memory_usage": 50,  # placeholder
+            }
+        return self.intel.check_watchers(state)
+
+    # =========================================================================
+    # Self-Improvement — Bruce gets better over time
+    # =========================================================================
+
+    def self_analyze(self) -> dict:
+        """Bruce analyzes his own performance and suggests improvements."""
+        return self.improver.analyze_performance(self.monitor)
+
+    def evolution_report(self) -> dict:
+        """Report on how Bruce has evolved over time."""
+        return self.improver.generate_evolution_report()
+
     def status(self) -> dict:
         """Full status report of Bruce."""
         return {
@@ -313,6 +382,9 @@ class BruceAgent:
             "llm": self._llm_name,
             "agents": self.factory.get_stats(),
             "learning": self.learning.get_growth_report(),
+            "goals": len(self.planner.get_active_goals()),
+            "watchers": len(self.intel.watchers),
+            "health": self.monitor.health_check(),
             "conversation_length": len(self.conversation_history),
             "active": self.active,
         }

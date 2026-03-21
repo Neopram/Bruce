@@ -1,0 +1,111 @@
+{
+  "decisions": [
+    {
+      "decision": "Buy BTC",
+      "context": "Price at support level",
+      "outcome": "Profit +5%",
+      "success": true,
+      "timestamp": "2026-03-21T13:27:57.330391+00:00"
+    },
+    {
+      "decision": "Sell ETH",
+      "context": "Overbought RSI",
+      "outcome": "Loss -2%",
+      "success": false,
+      "timestamp": "2026-03-21T13:27:57.361166+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "BTC at support with high volume",
+      "outcome": "Profit",
+      "success": true,
+      "timestamp": "2026-03-21T13:27:57.378068+00:00"
+    },
+    {
+      "decision": "Set goal: Master crypto",
+      "context": "Learn everything about DeFi",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:28:41.009116+00:00"
+    },
+    {
+      "decision": "Set goal: Shipping Intelligence",
+      "context": "Build comprehensive shipping monitoring",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:29:06.409526+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "Price at support level",
+      "outcome": "Profit +5%",
+      "success": true,
+      "timestamp": "2026-03-21T13:30:21.955287+00:00"
+    },
+    {
+      "decision": "Sell ETH",
+      "context": "Overbought RSI",
+      "outcome": "Loss -2%",
+      "success": false,
+      "timestamp": "2026-03-21T13:30:21.955287+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "BTC at support with high volume",
+      "outcome": "Profit",
+      "success": true,
+      "timestamp": "2026-03-21T13:30:21.970867+00:00"
+    },
+    {
+      "decision": "Set goal: Master crypto",
+      "context": "Learn everything about DeFi",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:30:51.154553+00:00"
+    },
+    {
+      "decision": "Set goal: Shipping Intelligence",
+      "context": "Build comprehensive shipping monitoring",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:31:16.483668+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "Price at support level",
+      "outcome": "Profit +5%",
+      "success": true,
+      "timestamp": "2026-03-21T13:32:20.395870+00:00"
+    },
+    {
+      "decision": "Sell ETH",
+      "context": "Overbought RSI",
+      "outcome": "Loss -2%",
+      "success": false,
+      "timestamp": "2026-03-21T13:32:20.396870+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "BTC at support with high volume",
+      "outcome": "Profit",
+      "success": true,
+      "timestamp": "2026-03-21T13:32:20.412606+00:00"
+    },
+    {
+      "decision": "Set goal: Master crypto",
+      "context": "Learn everything about DeFi",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:32:49.641365+00:00"
+    },
+    {
+      "decision": "Set goal: Shipping Intelligence",
+      "context": "Build comprehensive shipping monitoring",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:33:14.988132+00:00"
+    }
+  ],
+  "success_rate": 0.6666666666666666,
+  "total_decisions": 15
+}

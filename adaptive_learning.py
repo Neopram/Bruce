@@ -225,7 +225,7 @@ class AdaptiveLearningEngine:
             overlap = len(context_words & d_words)
             if overlap > 1:
                 scored.append((overlap, d))
-        scored.sort(reverse=True)
+        scored.sort(key=lambda x: x[0], reverse=True)
         return [d for _, d in scored[:5]]
 
     # =========================================================================

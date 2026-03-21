@@ -1,0 +1,74 @@
+[
+  {
+    "plan_id": "plan-001",
+    "step": 1,
+    "description": "Step 1: Gather data",
+    "result": "Executed: Step 1: Gather data",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:27:57.822321+00:00"
+  },
+  {
+    "plan_id": "plan-001",
+    "step": 2,
+    "description": "Step 2: Analyze",
+    "result": "Executed: Step 2: Analyze",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:27:57.822321+00:00"
+  },
+  {
+    "plan_id": "plan-001",
+    "step": 3,
+    "description": "Step 3: Report",
+    "result": "Executed: Step 3: Report",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:27:57.822321+00:00"
+  },
+  {
+    "plan_id": "plan-002",
+    "step": 1,
+    "description": "Step 1: Gather data",
+    "result": "Executed: Step 1: Gather data",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:30:22.065783+00:00"
+  },
+  {
+    "plan_id": "plan-002",
+    "step": 2,
+    "description": "Step 2: Analyze",
+    "result": "Executed: Step 2: Analyze",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:30:22.065783+00:00"
+  },
+  {
+    "plan_id": "plan-002",
+    "step": 3,
+    "description": "Step 3: Report",
+    "result": "Executed: Step 3: Report",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:30:22.065783+00:00"
+  },
+  {
+    "plan_id": "plan-003",
+    "step": 1,
+    "description": "Step 1: Gather data",
+    "result": "Executed: Step 1: Gather data",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:32:20.532645+00:00"
+  },
+  {
+    "plan_id": "plan-003",
+    "step": 2,
+    "description": "Step 2: Analyze",
+    "result": "Executed: Step 2: Analyze",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:32:20.532645+00:00"
+  },
+  {
+    "plan_id": "plan-003",
+    "step": 3,
+    "description": "Step 3: Report",
+    "result": "Executed: Step 3: Report",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:32:20.532645+00:00"
+  }
+]

@@ -4,14 +4,53 @@
       "facts": [
         "Bruce can learn anything",
         "Bruce is autonomous",
-        "Bruce creates micro-agents"
+        "Bruce creates micro-agents",
+        "Shipping routes cross the ocean",
+        "Container ships carry TEU"
+      ],
+      "sources": [
+        "manual",
+        "unknown"
+      ],
+      "learned_at": "2026-03-21T13:17:53.390487+00:00",
+      "confidence": 0.35
+    },
+    "quantum_physics": {
+      "facts": [
+        "Quantum entanglement connects particles",
+        "Superposition allows multiple states",
+        "Wave function collapse on measurement"
+      ],
+      "sources": [
+        "test"
+      ],
+      "learned_at": "2026-03-21T13:27:57.299177+00:00",
+      "confidence": 0.32999999999999996
+    },
+    "test_topic": {
+      "facts": [
+        "Fact 1",
+        "Fact 2",
+        "Fact 3"
       ],
       "sources": [
         "manual"
       ],
-      "learned_at": "2026-03-21T13:17:53.390487+00:00",
+      "learned_at": "2026-03-21T13:28:28.617900+00:00",
+      "confidence": 0.32999999999999996
+    },
+    "shipping_basics": {
+      "facts": [
+        "Container ships carry up to 24000 TEU",
+        "Panamax is max 5000 TEU",
+        "Bunker fuel is 80% of operating cost"
+      ],
+      "sources": [
+        "manual"
+      ],
+      "learned_at": "2026-03-21T13:29:06.281885+00:00",
       "confidence": 0.32999999999999996
     }
   },
-  "total_facts": 3
+  "total_facts": 14
 }
