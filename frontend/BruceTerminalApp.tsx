@@ -24,10 +24,6 @@ export default function BruceTerminalApp() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: input })
-    })
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: input })
       })
       const data = await res.json()
       const aiMessage = { role: "bruce", message: data.output || "[Empty response]" }

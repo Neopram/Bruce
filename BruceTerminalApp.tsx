@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Mic, PlayCircle, SendHorizonal } from 'lucide-react'
+import toast from 'react-hot-toast'
 
 export default function BruceTerminalApp() {
   const [history, setHistory] = useState<{ role: string, message: string }[]>([])

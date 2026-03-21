@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default function ArchetypeSelector() {
   const [nombre, setNombre] = useState("");
-  const [respuesta, setRespuesta] = useState(null);
+  const [respuesta, setRespuesta] = useState<Record<string, string> | null>(null);
 
   const handleGetArchetype = async () => {
     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/arquetipo`, { nombre });

@@ -1,6 +1,6 @@
 import React from "react";
-import VantablackDashboard from "./components/vantablack/VantablackDashboard";
-import { AuthProvider } from "./contexts/AuthContext";
+import VantablackDashboard from "./vantablack/VantablackDashboard";
+import { AuthProvider } from "../contexts/AuthContext";
 
 export default function App() {
   return (

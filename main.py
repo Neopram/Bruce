@@ -5,7 +5,7 @@ import sys
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -123,6 +123,81 @@ async def catch_exceptions_middleware(request: Request, call_next):
                 "detail": str(e) if settings.debug else "An unexpected error occurred",
             },
         )
+
+
+# === WebSocket Chat ===
+class ConnectionManager:
+    def __init__(self):
+        self.active: dict[str, WebSocket] = {}
+
+    async def connect(self, user_id: str, ws: WebSocket):
+        await ws.accept()
+        self.active[user_id] = ws
+        logger.info(f"WebSocket connected: {user_id}")
+
+    def disconnect(self, user_id: str):
+        self.active.pop(user_id, None)
+        logger.info(f"WebSocket disconnected: {user_id}")
+
+    async def send(self, user_id: str, data: dict):
+        ws = self.active.get(user_id)
+        if ws:
+            await ws.send_json(data)
+
+    async def broadcast(self, data: dict):
+        for ws in self.active.values():
+            await ws.send_json(data)
+
+
+ws_manager = ConnectionManager()
+
+
+@app.websocket("/ws/{user_id}")
+async def websocket_chat(websocket: WebSocket, user_id: str):
+    """WebSocket endpoint for real-time chat."""
+    await ws_manager.connect(user_id, websocket)
+    try:
+        while True:
+            data = await websocket.receive_json()
+            message = data.get("message", "")
+            # Process through orchestrator
+            try:
+                from orchestrator import cognitive_infer
+                result = cognitive_infer(message, task="chat", user_id=user_id)
+                response = result.get("response", "No response available")
+            except Exception:
+                response = f"Received: {message}"
+
+            await ws_manager.send(user_id, {
+                "type": "message",
+                "sender": "bruce",
+                "content": response,
+                "user_id": user_id,
+            })
+    except WebSocketDisconnect:
+        ws_manager.disconnect(user_id)
+
+
+@app.websocket("/ws/market")
+async def websocket_market(websocket: WebSocket):
+    """WebSocket endpoint for real-time market data streaming."""
+    await websocket.accept()
+    import asyncio
+    import random
+    try:
+        prices = {"BTC/USDT": 50000, "ETH/USDT": 3000, "SOL/USDT": 150}
+        while True:
+            for symbol, base in prices.items():
+                change = random.uniform(-0.005, 0.005)
+                prices[symbol] = round(base * (1 + change), 2)
+            await websocket.send_json({
+                "type": "market_update",
+                "data": {s: {"price": p, "change_pct": round(random.uniform(-2, 2), 2)}
+                         for s, p in prices.items()},
+            })
+            await asyncio.sleep(2)
+    except WebSocketDisconnect:
+        pass
 
 
 if __name__ == "__main__":

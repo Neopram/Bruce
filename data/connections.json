@@ -1,0 +1,48 @@
+{
+  "generated_at": "2026-03-21T10:21:42.019483+00:00",
+  "connections": [
+    {
+      "source": "http_general",
+      "display_name": "General HTTP Connectivity",
+      "status": "connected",
+      "simulated": false,
+      "last_tested": "2026-03-21T10:21:36.125676+00:00",
+      "details": {
+        "latency_ms": 772
+      }
+    },
+    {
+      "source": "ccxt_binance",
+      "display_name": "Binance (CCXT) -- BTC/USDT",
+      "status": "connected",
+      "simulated": false,
+      "last_tested": "2026-03-21T10:21:36.954747+00:00",
+      "details": {
+        "symbol": "BTC/USDT",
+        "last_price": 70572.26,
+        "volume_24h": 1140915993.162979,
+        "timestamp": "2026-03-21T10:21:42.013Z"
+      }
+    },
+    {
+      "source": "newsapi",
+      "display_name": "NewsAPI.org",
+      "status": "disconnected",
+      "simulated": true,
+      "last_tested": "2026-03-21T10:21:42.019483+00:00",
+      "details": {
+        "info": "No NEWSAPI_KEY in environment. Set it in .env to enable."
+      }
+    }
+  ],
+  "refresh_intervals": {
+    "ccxt_binance": {
+      "refresh_seconds": 30,
+      "description": "Crypto ticker refresh"
+    },
+    "newsapi": {
+      "refresh_seconds": 900,
+      "description": "News headlines refresh (15 min)"
+    }
+  }
+}

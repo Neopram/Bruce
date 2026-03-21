@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useCognition = () => {
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchStatus = async () => {

@@ -75,7 +75,7 @@ const DigestPanel = () => {
   };
 
   const categories = digest
-    ? ["all", ...new Set(digest.items.map(i => i.category))]
+    ? ["all", ...Array.from(new Set(digest.items.map(i => i.category)))]
     : ["all"];
 
   const filteredItems = digest?.items.filter(

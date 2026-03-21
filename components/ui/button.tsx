@@ -5,7 +5,7 @@ import clsx from "clsx";
  * 🧠 ButtonProps – Extendido para IA interactiva
  */
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "primary" | "secondary" | "destructive" | "ghost";
+  variant?: "default" | "primary" | "secondary" | "destructive" | "ghost" | "outline";
   size?: "sm" | "md" | "lg";
   isLoading?: boolean;
   children: React.ReactNode;
@@ -33,6 +33,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary: "bg-zinc-800 text-white hover:bg-zinc-700",
     destructive: "bg-red-600 text-white hover:bg-red-700",
     ghost: "bg-transparent text-zinc-600 hover:bg-zinc-100",
+    outline: "border border-zinc-600 text-zinc-300 bg-transparent hover:bg-zinc-800",
   };
 
   const sizeStyles: Record<string, string> = {
@@ -84,4 +85,5 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 // Exportación predeterminada del componente Button
+export { Button };
 export default Button;

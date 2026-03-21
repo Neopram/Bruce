@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectItem } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
+import Input from '@/components/ui/input';
 
 export default function TerminalDashboard() {
   const [prompt, setPrompt] = useState('');

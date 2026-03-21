@@ -43,4 +43,5 @@ const Textarea: React.FC<TextareaProps> = ({
   );
 };
 
-export default Textarea;  // Exportación por defecto
+export { Textarea };
+export default Textarea;

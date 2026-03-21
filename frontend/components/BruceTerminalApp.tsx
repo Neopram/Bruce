@@ -2,18 +2,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Input from "@/components/ui/input";
 import { Sun, Moon, Mic, Send, Volume2 } from "lucide-react";
 import { useTheme } from "next-themes";
-import { ModelSwitcher } from "@/components/ModelSwitcher";
-import { PersonalitySelector } from "@/components/PersonalitySelector";
+import { ModelSwitcher } from "./ModelSwitcher";
+import { PersonalitySelector } from "./PersonalitySelector";
 
 const BruceTerminalApp = () => {
   const { theme, setTheme } = useTheme();
   const [input, setInput] = useState("");
-  const [conversation, setConversation] = useState([]);
+  const [conversation, setConversation] = useState<{ role: string; text: string }[]>([]);
   const [loading, setLoading] = useState(false);
-  const messagesEndRef = useRef(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     scrollToBottom();

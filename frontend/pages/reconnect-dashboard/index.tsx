@@ -5,7 +5,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 const ReconnectDashboard = () => {
-  const [modules, setModules] = useState([]);
+  const [modules, setModules] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
     fetch("/api/self-audit")

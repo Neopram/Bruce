@@ -40,7 +40,7 @@ const CryptoTransactionViewer: React.FC = () => {
     fetchTx();
   }, []);
 
-  const pairs = useMemo(() => [...new Set(transactions.map((t) => t.pair))], [transactions]);
+  const pairs = useMemo(() => Array.from(new Set(transactions.map((t) => t.pair))), [transactions]);
 
   const filtered = useMemo(() => {
     let result = [...transactions];

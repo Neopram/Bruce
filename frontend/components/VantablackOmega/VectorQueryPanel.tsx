@@ -94,7 +94,7 @@ const VectorQueryPanel = () => {
     if (score >= 0.9) return "success" as const
     if (score >= 0.7) return "info" as const
     if (score >= 0.5) return "warning" as const
-    return "neutral" as const
+    return "default" as const
   }
 
   return (
@@ -201,7 +201,7 @@ const VectorQueryPanel = () => {
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-zinc-200 line-clamp-2">{r.content}</p>
                     <div className="flex items-center gap-2 mt-1.5">
-                      <Badge variant={getScoreVariant(r.score)} size="sm">
+                      <Badge variant={getScoreVariant(r.score) as any} size="sm">
                         {(r.score * 100).toFixed(1)}%
                       </Badge>
                       {r.metadata.source && (
@@ -220,7 +220,7 @@ const VectorQueryPanel = () => {
                         <p className="text-xs text-zinc-300 whitespace-pre-wrap">{r.content}</p>
                         <div className="mt-2 flex items-center gap-2">
                           <span className="text-xs text-zinc-500">Score:</span>
-                          <Progress value={r.score * 100} variant={getScoreVariant(r.score)} size="sm" className="flex-1 max-w-32" />
+                          <Progress value={r.score * 100} variant={getScoreVariant(r.score) as any} size="sm" className="flex-1 max-w-32" />
                           <span className={`text-xs font-mono ${getScoreColor(r.score)}`}>
                             {(r.score * 100).toFixed(1)}%
                           </span>

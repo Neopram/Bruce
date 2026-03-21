@@ -19,7 +19,7 @@ export default function ArchetypeSelector() {
       {respuesta && (
         <div className="bg-gray-100 p-3 rounded text-sm mt-2 space-y-1">
           {Object.entries(respuesta).map(([key, val], idx) => (
-            <div key={idx}><b>{key}:</b> {val}</div>
+            <div key={idx}><b>{key}:</b> {val as string}</div>
           ))}
         </div>
       )}

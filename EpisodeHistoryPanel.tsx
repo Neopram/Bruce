@@ -37,6 +37,7 @@ export default function EpisodeHistoryPanel() {
       </h2>
 
       {loading ? (
+        <p className="text-sm text-gray-500">Loading...</p>
       ) : episodes.length === 0 ? (
         <p className="text-sm text-gray-500">No episodes found.</p>
       ) : (
