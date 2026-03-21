@@ -258,5 +258,125 @@
         "priority": "low"
       }
     ]
+  },
+  {
+    "timestamp": "2026-03-21T13:57:00.888261+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 193,
+      "success_rate": 97.4,
+      "avg_response_ms": 201.4,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 5
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:57:10.021241+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 193,
+      "success_rate": 97.4,
+      "avg_response_ms": 201.4,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 5
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:57:10.915498+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 193,
+      "success_rate": 97.4,
+      "avg_response_ms": 201.4,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 5
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:58:57.874786+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 231,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 5,
+      "error_count": 6
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:59:06.996227+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 231,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 5,
+      "error_count": 6
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:59:07.851150+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 231,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 5,
+      "error_count": 6
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
   }
 ]

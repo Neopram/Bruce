@@ -17,6 +17,9 @@ from bruce_identity import BruceIdentity, BRUCE_SYSTEM_PROMPT
 from micro_agent_factory import MicroAgentFactory
 from adaptive_learning import AdaptiveLearningEngine
 from bruce_autonomy import AutonomousPlanner, SelfMonitor, SelfImprover, ProactiveIntelligence
+from tools import get_tools, ToolRegistry
+from react_agent import ReActAgent
+from vector_memory import get_vector_memory, VectorMemory
 
 logger = logging.getLogger("Bruce.Agent")
 
@@ -36,6 +39,11 @@ class BruceAgent:
         self.improver = SelfImprover(self.learning)
         self.intel = ProactiveIntelligence()
 
+        # Real tools and agent capabilities
+        self.tools = get_tools()
+        self.vmemory = get_vector_memory()
+        self.react = None  # Initialized after LLM connect
+
         # LLM connection
         self._llm_fn = None
         self._llm_name = "none"
@@ -48,6 +56,7 @@ class BruceAgent:
 
         # Initialize
         self._connect_llm()
+        self.react = ReActAgent(llm_fn=self._llm_fn, tools=self.tools)
         self._spawn_default_agents()
         self._setup_default_watchers()
 
@@ -285,6 +294,51 @@ class BruceAgent:
 
     # =========================================================================
     # Autonomous Operations — Bruce acts on his own
+    # =========================================================================
+
+    # =========================================================================
+    # DO — Bruce takes REAL actions (not just talk)
+    # =========================================================================
+
+    def do(self, task: str) -> dict:
+        """Bruce executes a task using real tools via ReAct agent loop.
+        This is where Bruce stops talking and starts DOING."""
+        start = time.perf_counter()
+
+        # Log the action
+        self.learning.log_decision(f"Executing: {task}", task)
+
+        # Run ReAct agent
+        result = self.react.run(task)
+
+        elapsed = round((time.perf_counter() - start) * 1000, 1)
+
+        # Store the result in vector memory
+        self.vmemory.store_decision(
+            decision=task,
+            context=f"Tools used: {result.get('tools_used', [])}",
+            outcome=result.get("answer", "")[:200],
+        )
+
+        # Monitor
+        self.monitor.record_response(elapsed, result["status"] == "completed")
+
+        # Learn from the action
+        self.learning.learn_from_interaction(task, result.get("answer", ""))
+
+        return result
+
+    def use_tool(self, tool_name: str, **kwargs) -> dict:
+        """Directly use a specific tool."""
+        result = self.tools.execute(tool_name, **kwargs)
+        return result.to_dict()
+
+    def get_tools(self) -> list:
+        """List all available tools."""
+        return self.tools.list_tools()
+
+    # =========================================================================
+    # Agent Operations
     # =========================================================================
 
     def create_agent_for(self, description: str) -> dict:

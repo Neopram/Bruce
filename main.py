@@ -154,7 +154,39 @@ try:
         bruce = get_bruce()
         return {"agents": bruce.factory.list_agents()}
 
-    logger.info("Bruce Autonomous Agent endpoints loaded")
+    class DoRequest(BaseModel):
+        task: str
+
+    class ToolRequest(BaseModel):
+        tool: str
+        params: dict = {}
+
+    @app.post("/bruce/do", tags=["Bruce Agent"])
+    async def bruce_do(req: DoRequest):
+        """Bruce DOES something real using tools (ReAct agent loop)."""
+        bruce = get_bruce()
+        return bruce.do(req.task)
+
+    @app.post("/bruce/tool", tags=["Bruce Agent"])
+    async def bruce_tool(req: ToolRequest):
+        """Directly use a specific tool."""
+        bruce = get_bruce()
+        return bruce.use_tool(req.tool, **req.params)
+
+    @app.get("/bruce/tools", tags=["Bruce Agent"])
+    async def bruce_tools():
+        """List all available tools."""
+        bruce = get_bruce()
+        return {"tools": bruce.get_tools()}
+
+    @app.get("/bruce/memory", tags=["Bruce Agent"])
+    async def bruce_memory(query: str = "recent"):
+        """Search Bruce's vector memory."""
+        bruce = get_bruce()
+        results = bruce.vmemory.search(query, limit=10)
+        return {"results": results, "stats": bruce.vmemory.get_stats()}
+
+    logger.info("Bruce Autonomous Agent endpoints loaded (with tools & memory)")
 except ImportError as e:
     logger.warning(f"Bruce Agent not available: {e}")
 

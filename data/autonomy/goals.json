@@ -346,5 +346,173 @@
     "created_at": "2026-03-21T13:42:48.194399+00:00",
     "deadline": null,
     "outcome": null
+  },
+  {
+    "id": "goal-026",
+    "title": "Learn shipping",
+    "description": "Master maritime logistics",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:57:00.751612+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-027",
+    "title": "Test goal",
+    "description": "Testing",
+    "priority": "medium",
+    "status": "active",
+    "progress": 50,
+    "steps": [
+      {
+        "note": "Halfway there",
+        "progress": 50,
+        "timestamp": "2026-03-21T13:57:00.764067+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T13:57:00.763067+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-028",
+    "title": "Quick goal",
+    "description": "Done fast",
+    "priority": "medium",
+    "status": "completed",
+    "progress": 100,
+    "steps": [
+      {
+        "note": "Done!",
+        "progress": 100,
+        "timestamp": "2026-03-21T13:57:00.776478+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T13:57:00.775271+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-029",
+    "title": "Test plan",
+    "description": "Execute steps",
+    "priority": "medium",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:57:00.788283+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-030",
+    "title": "Master crypto",
+    "description": "Learn everything about DeFi",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:57:09.836547+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-031",
+    "title": "Shipping Intelligence",
+    "description": "Build comprehensive shipping monitoring",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:57:10.755256+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-032",
+    "title": "Learn shipping",
+    "description": "Master maritime logistics",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:58:57.731394+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-033",
+    "title": "Test goal",
+    "description": "Testing",
+    "priority": "medium",
+    "status": "active",
+    "progress": 50,
+    "steps": [
+      {
+        "note": "Halfway there",
+        "progress": 50,
+        "timestamp": "2026-03-21T13:58:57.744235+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T13:58:57.744235+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-034",
+    "title": "Quick goal",
+    "description": "Done fast",
+    "priority": "medium",
+    "status": "completed",
+    "progress": 100,
+    "steps": [
+      {
+        "note": "Done!",
+        "progress": 100,
+        "timestamp": "2026-03-21T13:58:57.759036+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T13:58:57.757964+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-035",
+    "title": "Test plan",
+    "description": "Execute steps",
+    "priority": "medium",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:58:57.772259+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-036",
+    "title": "Master crypto",
+    "description": "Learn everything about DeFi",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:59:06.810661+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-037",
+    "title": "Shipping Intelligence",
+    "description": "Build comprehensive shipping monitoring",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:59:07.712990+00:00",
+    "deadline": null,
+    "outcome": null
   }
 ]

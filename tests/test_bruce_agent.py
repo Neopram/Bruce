@@ -276,6 +276,8 @@ class TestAutonomy:
     def test_anomaly_detection(self):
         from bruce_autonomy import SelfMonitor
         monitor = SelfMonitor()
+        # Reset response times for clean test
+        monitor.metrics["response_times"] = []
         for _ in range(20):
             monitor.record_response(100, True)
         is_anomaly = monitor.detect_anomaly("response_time", 500)

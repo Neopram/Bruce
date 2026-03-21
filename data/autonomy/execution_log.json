@@ -126,5 +126,53 @@
     "result": "Executed: Identify disruption risks",
     "elapsed_ms": 0.0,
     "timestamp": "2026-03-21T13:42:48.198403+00:00"
+  },
+  {
+    "plan_id": "plan-006",
+    "step": 1,
+    "description": "Step 1: Gather data",
+    "result": "Executed: Step 1: Gather data",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:57:00.790282+00:00"
+  },
+  {
+    "plan_id": "plan-006",
+    "step": 2,
+    "description": "Step 2: Analyze",
+    "result": "Executed: Step 2: Analyze",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:57:00.790282+00:00"
+  },
+  {
+    "plan_id": "plan-006",
+    "step": 3,
+    "description": "Step 3: Report",
+    "result": "Executed: Step 3: Report",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:57:00.790282+00:00"
+  },
+  {
+    "plan_id": "plan-007",
+    "step": 1,
+    "description": "Step 1: Gather data",
+    "result": "Executed: Step 1: Gather data",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:58:57.791230+00:00"
+  },
+  {
+    "plan_id": "plan-007",
+    "step": 2,
+    "description": "Step 2: Analyze",
+    "result": "Executed: Step 2: Analyze",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:58:57.791230+00:00"
+  },
+  {
+    "plan_id": "plan-007",
+    "step": 3,
+    "description": "Step 3: Report",
+    "result": "Executed: Step 3: Report",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:58:57.791230+00:00"
   }
 ]

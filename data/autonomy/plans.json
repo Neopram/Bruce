@@ -134,5 +134,57 @@
     ],
     "created_at": "2026-03-21T13:42:48.197444+00:00",
     "status": "completed"
+  },
+  {
+    "id": "plan-006",
+    "goal_id": "goal-029",
+    "steps": [
+      {
+        "step": 1,
+        "description": "Step 1: Gather data",
+        "status": "completed",
+        "result": "Executed: Step 1: Gather data"
+      },
+      {
+        "step": 2,
+        "description": "Step 2: Analyze",
+        "status": "completed",
+        "result": "Executed: Step 2: Analyze"
+      },
+      {
+        "step": 3,
+        "description": "Step 3: Report",
+        "status": "completed",
+        "result": "Executed: Step 3: Report"
+      }
+    ],
+    "created_at": "2026-03-21T13:57:00.789282+00:00",
+    "status": "completed"
+  },
+  {
+    "id": "plan-007",
+    "goal_id": "goal-035",
+    "steps": [
+      {
+        "step": 1,
+        "description": "Step 1: Gather data",
+        "status": "completed",
+        "result": "Executed: Step 1: Gather data"
+      },
+      {
+        "step": 2,
+        "description": "Step 2: Analyze",
+        "status": "completed",
+        "result": "Executed: Step 2: Analyze"
+      },
+      {
+        "step": 3,
+        "description": "Step 3: Report",
+        "status": "completed",
+        "result": "Executed: Step 3: Report"
+      }
+    ],
+    "created_at": "2026-03-21T13:58:57.790213+00:00",
+    "status": "completed"
   }
 ]
