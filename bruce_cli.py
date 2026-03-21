@@ -59,6 +59,8 @@ def print_help():
   /reflect     — Bruce self-reflects
   /analyze     — Self-performance analysis
   /brain       — LLM brain status
+  /voice       — Start voice chat mode
+  /plugins     — List/manage plugins (load, unload, reload)
   /help        — Show this help
   /quit        — Exit
 """)
@@ -191,9 +193,84 @@ def main():
                     print(f"  Available: {info['available']}")
                 except Exception:
                     print("  No unified LLM client available")
+            elif command == "/plugins":
+                from modules.plugin_system import get_plugin_manager
+                pm = get_plugin_manager(bruce=bruce)
+                # Sub-commands: /plugins, /plugins load [name], /plugins unload <name>, /plugins reload <name>
+                parts = arg.strip().split(maxsplit=1)
+                sub = parts[0].lower() if parts else ""
+                sub_arg = parts[1].strip() if len(parts) > 1 else ""
+
+                if sub == "load":
+                    if sub_arg:
+                        import os as _os
+                        plugin_path = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "plugins", f"{sub_arg}.py")
+                        p = pm.load_plugin(plugin_path)
+                        if p:
+                            print(f"\033[36m  Loaded: {p.name} v{p.version}\033[0m")
+                        else:
+                            print(f"\033[31m  Failed to load plugin: {sub_arg}\033[0m")
+                    else:
+                        results = pm.load_all()
+                        for pname, success in results.items():
+                            status_icon = "\033[32mOK\033[0m" if success else "\033[31mFAIL\033[0m"
+                            print(f"  {pname}: {status_icon}")
+                elif sub == "unload":
+                    if not sub_arg:
+                        print("\033[90m  Usage: /plugins unload <name>\033[0m")
+                    elif pm.unload_plugin(sub_arg):
+                        print(f"\033[36m  Unloaded: {sub_arg}\033[0m")
+                    else:
+                        print(f"\033[31m  Plugin '{sub_arg}' not found or not loaded.\033[0m")
+                elif sub == "reload":
+                    if not sub_arg:
+                        print("\033[90m  Usage: /plugins reload <name>\033[0m")
+                    else:
+                        p = pm.reload_plugin(sub_arg)
+                        if p:
+                            print(f"\033[36m  Reloaded: {p.name} v{p.version}\033[0m")
+                        else:
+                            print(f"\033[31m  Failed to reload plugin: {sub_arg}\033[0m")
+                else:
+                    # List plugins
+                    plugins = pm.list_plugins()
+                    if not plugins:
+                        print("\033[90m  No plugins loaded. Use /plugins load to load all.\033[0m")
+                    else:
+                        print(f"\033[33m  Loaded Plugins ({len(plugins)}):\033[0m")
+                        for p in plugins:
+                            status_str = "\033[32mloaded\033[0m" if p["loaded"] else "\033[31merror\033[0m"
+                            tools_str = ", ".join(p["tools"]) if p["tools"] else "none"
+                            cmds_str = ", ".join(f"/{c}" for c in p["commands"]) if p["commands"] else "none"
+                            print(f"  \033[36m{p['name']}\033[0m v{p['version']} [{status_str}]")
+                            print(f"    {p['description']}")
+                            print(f"    Tools: {tools_str} | Commands: {cmds_str}")
+            elif command == "/voice":
+                from modules.voice_engine import start_voice_chat
+                start_voice_chat(bruce_agent=bruce, require_wake_word=("wake" in arg.lower()))
             else:
-                print(f"\033[90m  Unknown command: {command}. Type /help\033[0m")
+                # Check plugin commands before giving up
+                handled = False
+                try:
+                    from modules.plugin_system import get_plugin_manager
+                    pm = get_plugin_manager()
+                    plugin_cmds = pm.get_all_commands()
+                    cmd_name = command.lstrip("/")
+                    if cmd_name in plugin_cmds:
+                        plugin_cmds[cmd_name]["fn"](arg)
+                        handled = True
+                except Exception:
+                    pass
+                if not handled:
+                    print(f"\033[90m  Unknown command: {command}. Type /help\033[0m")
             continue
+
+        # Fire plugin on_message hook
+        try:
+            from modules.plugin_system import get_plugin_manager
+            get_plugin_manager().fire_on_message(user_input)
+        except Exception:
+            pass
 
         # Regular chat
         response = bruce.chat(user_input)

@@ -637,6 +637,139 @@ def schedule_task(name: str, interval_seconds: int, description: str = "") -> di
 
 
 # ============================================================
+#  PLUGIN TOOLS
+# ============================================================
+
+@mcp.tool()
+def manage_plugins(
+    action: str = "list",
+    name: str = "",
+) -> dict:
+    """Manage Bruce's plugin system.
+    action: 'list' — show all loaded plugins
+            'load' — load all plugins (or a specific one if name is given)
+            'unload' — unload a plugin by name
+            'reload' — hot-reload a plugin by name
+            'tools' — list all tools provided by plugins
+    name: plugin name (required for unload/reload, optional for load)
+    """
+    try:
+        from modules.plugin_system import get_plugin_manager
+        pm = get_plugin_manager()
+
+        if action == "list":
+            plugins = pm.list_plugins()
+            return {"plugins": plugins, "count": len(plugins)}
+
+        elif action == "load":
+            if name:
+                import os
+                plugin_path = os.path.join(PROJECT_ROOT, "plugins", f"{name}.py")
+                plugin = pm.load_plugin(plugin_path)
+                if plugin:
+                    return {
+                        "status": "loaded",
+                        "plugin": {
+                            "name": plugin.name,
+                            "version": plugin.version,
+                            "description": plugin.description,
+                        },
+                    }
+                return {"status": "error", "message": f"Failed to load plugin: {name}"}
+            else:
+                results = pm.load_all()
+                return {
+                    "status": "loaded_all",
+                    "results": {k: "ok" if v else "failed" for k, v in results.items()},
+                }
+
+        elif action == "unload":
+            if not name:
+                return {"status": "error", "message": "Name required for unload"}
+            success = pm.unload_plugin(name)
+            return {"status": "unloaded" if success else "error", "name": name}
+
+        elif action == "reload":
+            if not name:
+                return {"status": "error", "message": "Name required for reload"}
+            plugin = pm.reload_plugin(name)
+            if plugin:
+                return {
+                    "status": "reloaded",
+                    "plugin": {
+                        "name": plugin.name,
+                        "version": plugin.version,
+                    },
+                }
+            return {"status": "error", "message": f"Failed to reload plugin: {name}"}
+
+        elif action == "tools":
+            tools = pm.get_all_tools()
+            return {
+                "tools": [
+                    {
+                        "name": t["name"],
+                        "description": t.get("description", ""),
+                        "source_plugin": t.get("source_plugin", "?"),
+                    }
+                    for t in tools
+                ],
+                "count": len(tools),
+            }
+
+        else:
+            return {"status": "error", "message": f"Unknown action: {action}. Use list/load/unload/reload/tools."}
+
+    except Exception as e:
+        logger.error(f"manage_plugins error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def load_plugin_tools() -> dict:
+    """Load all plugin tools and make them available to Bruce's tool registry.
+    Scans the plugins/ directory, loads all plugins, and registers their tools.
+    Returns the list of newly available tools.
+    """
+    try:
+        from modules.plugin_system import get_plugin_manager
+        pm = get_plugin_manager()
+
+        # Load all plugins if not already loaded
+        if pm.loaded_count == 0:
+            pm.load_all()
+
+        # Get all plugin tools
+        tools = pm.get_all_tools()
+
+        # Also register into the ToolRegistry if available
+        registered = 0
+        try:
+            from tools import get_tools
+            registry = get_tools()
+            registered = pm.register_tools_to_registry(registry)
+        except Exception as e:
+            logger.warning(f"Could not register to ToolRegistry: {e}")
+
+        return {
+            "status": "ok",
+            "plugins_loaded": pm.loaded_count,
+            "tools_available": [
+                {
+                    "name": t["name"],
+                    "description": t.get("description", ""),
+                    "source_plugin": t.get("source_plugin", "?"),
+                }
+                for t in tools
+            ],
+            "tools_registered_to_registry": registered,
+        }
+    except Exception as e:
+        logger.error(f"load_plugin_tools error: {e}")
+        return {"error": str(e)}
+
+
+# ============================================================
 #  RUN SERVER
 # ============================================================
 

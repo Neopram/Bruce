@@ -378,5 +378,85 @@
         "priority": "low"
       }
     ]
+  },
+  {
+    "timestamp": "2026-03-21T19:51:03.459553+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 269,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 6,
+      "error_count": 7
+    },
+    "suggestions": [
+      {
+        "area": "stability",
+        "suggestion": "6 anomalies detected. Review system load.",
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T19:53:40.508382+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8
+    },
+    "suggestions": [
+      {
+        "area": "stability",
+        "suggestion": "7 anomalies detected. Review system load.",
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T19:55:26.665140+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8
+    },
+    "suggestions": [
+      {
+        "area": "stability",
+        "suggestion": "7 anomalies detected. Review system load.",
+        "priority": "high"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T19:58:18.021718+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8
+    },
+    "suggestions": [
+      {
+        "area": "stability",
+        "suggestion": "7 anomalies detected. Review system load.",
+        "priority": "high"
+      }
+    ]
   }
 ]

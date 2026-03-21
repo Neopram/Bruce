@@ -223,8 +223,64 @@
       "outcome": null,
       "success": null,
       "timestamp": "2026-03-21T13:59:07.713991+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "Price at support level",
+      "outcome": "Profit +5%",
+      "success": true,
+      "timestamp": "2026-03-21T19:51:03.321014+00:00"
+    },
+    {
+      "decision": "Sell ETH",
+      "context": "Overbought RSI",
+      "outcome": "Loss -2%",
+      "success": false,
+      "timestamp": "2026-03-21T19:51:03.321534+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "BTC at support with high volume",
+      "outcome": "Profit",
+      "success": true,
+      "timestamp": "2026-03-21T19:51:03.334944+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "Price at support level",
+      "outcome": "Profit +5%",
+      "success": true,
+      "timestamp": "2026-03-21T19:53:40.098921+00:00"
+    },
+    {
+      "decision": "Sell ETH",
+      "context": "Overbought RSI",
+      "outcome": "Loss -2%",
+      "success": false,
+      "timestamp": "2026-03-21T19:53:40.100936+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "BTC at support with high volume",
+      "outcome": "Profit",
+      "success": true,
+      "timestamp": "2026-03-21T19:53:40.133788+00:00"
+    },
+    {
+      "decision": "Set goal: Master crypto",
+      "context": "Learn everything about DeFi",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T19:54:02.397127+00:00"
+    },
+    {
+      "decision": "Set goal: Master crypto",
+      "context": "Learn everything about DeFi",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T19:56:15.885868+00:00"
     }
   ],
   "success_rate": 0.6666666666666666,
-  "total_decisions": 32
+  "total_decisions": 40
 }

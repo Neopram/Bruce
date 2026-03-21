@@ -92,6 +92,25 @@ class ToolRegistry:
     # Built-in Tools
     # =========================================================================
 
+    def register_plugin_tools(self) -> int:
+        """Load all plugins and register their tools into this registry.
+
+        Returns:
+            Number of plugin tools registered.
+        """
+        try:
+            from modules.plugin_system import get_plugin_manager
+            pm = get_plugin_manager()
+            if pm.loaded_count == 0:
+                pm.load_all()
+            count = pm.register_tools_to_registry(self)
+            if count > 0:
+                logger.info(f"Registered {count} plugin tool(s)")
+            return count
+        except Exception as e:
+            logger.error(f"Failed to register plugin tools: {e}")
+            return 0
+
     def _register_builtin_tools(self):
         """Register all built-in tools."""
 

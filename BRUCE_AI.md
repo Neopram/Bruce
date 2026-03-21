@@ -1,7 +1,8 @@
 # Bruce AI — Autonomous Intelligence Platform
 
-> **Version:** 4.0 | **Creator:** Federico | **Status:** Liberated
+> **Version:** 5.0 | **Creator:** Federico | **Status:** Liberated
 > An autonomous AI agent that trades, learns, adapts, and evolves.
+> Now with MCP Server, Voice Interface, Plugin System, and Production Docker.
 
 ---
 
@@ -19,14 +20,21 @@
 10. [Learning & Adaptation](#learning--adaptation)
 11. [Goal & Watcher System](#goal--watcher-system)
 12. [ReAct Agent Loop & Tool Use](#react-agent-loop--tool-use)
-13. [API Endpoints](#api-endpoints)
-14. [Frontend Dashboard](#frontend-dashboard)
-15. [CLI Interface](#cli-interface)
-16. [Security & Risk Management](#security--risk-management)
-17. [Infrastructure & Deployment](#infrastructure--deployment)
-18. [Tech Stack](#tech-stack)
-19. [Configuration](#configuration)
-20. [Getting Started](#getting-started)
+13. [MCP Server](#mcp-server)
+14. [Web Browsing & News](#web-browsing--news)
+15. [RAG Pipeline](#rag-pipeline)
+16. [Autonomous Scheduler](#autonomous-scheduler)
+17. [Voice Interface](#voice-interface)
+18. [Plugin System](#plugin-system)
+19. [Telegram Integration](#telegram-integration)
+20. [API Endpoints](#api-endpoints)
+21. [Frontend Dashboard](#frontend-dashboard)
+22. [CLI Interface](#cli-interface)
+23. [Security & Risk Management](#security--risk-management)
+24. [Infrastructure & Deployment](#infrastructure--deployment)
+25. [Tech Stack](#tech-stack)
+26. [Configuration](#configuration)
+27. [Getting Started](#getting-started)
 
 ---
 
@@ -619,6 +627,227 @@ Bruce thinking:
   Answer: "The correlation between BTC and shipping rates (BDI)
            is weak at 0.23. They're driven by different fundamentals..."
 ```
+
+---
+
+## MCP Server
+
+Bruce exposes **25 tools** via the Model Context Protocol, making him usable as a backend for any MCP-compatible LLM (Claude Desktop, Cursor, etc.).
+
+**The paradigm shift:** Instead of Bruce having a mediocre local LLM, Claude Opus or GPT-4 become the brain, and Bruce becomes the hands, eyes, and memory.
+
+### Tools Available
+
+| Category | Tools | Description |
+|----------|-------|-------------|
+| **Market** | `get_price`, `get_multi_prices`, `analyze_market`, `backtest_strategy` | Live prices, RSI, SMA, MACD, backtesting |
+| **Trading** | `execute_trade`, `get_positions`, `get_trade_history` | Paper/live trades, portfolio |
+| **Knowledge** | `search_knowledge`, `teach_bruce`, `recall_memory`, `store_memory` | Semantic RAG search, learning, memory |
+| **Agents** | `create_agent`, `list_agents`, `swarm_analyze` | Create agents, swarm intelligence |
+| **News** | `search_web`, `fetch_webpage`, `get_crypto_news`, `get_shipping_news`, `get_market_news` | DuckDuckGo, RSS feeds, sentiment |
+| **Shipping** | `shipping_route_analysis`, `shipping_knowledge` | Routes, Incoterms, freight |
+| **Control** | `bruce_status`, `bruce_reflect`, `set_goal`, `list_goals` | Status, self-reflection, goals |
+| **Alerts** | `send_telegram_alert` | Push notifications to Telegram |
+| **Simulation** | `simulate_crisis` | Stress test (2008, COVID, flash crash) |
+| **Scheduler** | `list_scheduled_tasks`, `schedule_task` | Autonomous recurring tasks |
+
+### Setup (Claude Desktop)
+
+Add to `%APPDATA%/Claude/claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "bruce_ai": {
+      "command": "python",
+      "args": ["C:/path/to/BruceWayneV1/bruce_mcp_server.py"],
+      "env": { "PYTHONIOENCODING": "utf-8" }
+    }
+  }
+}
+```
+
+Restart Claude Desktop. Bruce tools appear automatically.
+
+---
+
+## Web Browsing & News
+
+Bruce can search the web and monitor news in real-time.
+
+### Web Browser (`modules/web_browser.py`)
+
+| Function | Description |
+|----------|-------------|
+| `search_web(query)` | DuckDuckGo search (free, no API key) |
+| `fetch_url(url)` | Extract clean text from any webpage |
+| `fetch_news(topic)` | DuckDuckGo News for any topic |
+
+### News Monitor (`modules/news_monitor.py`)
+
+| Function | Sources |
+|----------|---------|
+| `get_crypto_news()` | CoinDesk, CoinTelegraph, Bitcoin Magazine, Decrypt |
+| `get_shipping_news()` | gCaptain, Maritime Executive, Splash247, Seatrade |
+| `get_market_news()` | MarketWatch, CNBC, Reuters, Yahoo Finance |
+| `get_sentiment(headlines)` | Keyword-based analysis with 70+ financial terms |
+
+---
+
+## RAG Pipeline
+
+Bruce uses Retrieval-Augmented Generation for intelligent knowledge retrieval.
+
+### How It Works
+
+```
+User Question → Embed → Search ChromaDB → Retrieve Top-K Chunks → Augment Prompt → LLM
+```
+
+### Components (`modules/rag_engine.py`)
+
+| Function | Description |
+|----------|-------------|
+| `embed_text(text)` | Ollama embeddings (nomic-embed-text) or TF-IDF fallback |
+| `index_document(text, metadata)` | Chunk, embed, and store in ChromaDB |
+| `query(question, top_k)` | Semantic search over knowledge base |
+| `augment_prompt(question, chunks)` | Build context-enriched prompt |
+| `rag_query(question)` | Full pipeline: embed, retrieve, augment |
+
+The orchestrator automatically uses RAG to enrich every query with relevant knowledge.
+
+---
+
+## Autonomous Scheduler
+
+Bruce runs tasks automatically in the background.
+
+### Default Tasks (`modules/scheduler.py`)
+
+| Task | Interval | What It Does |
+|------|----------|-------------|
+| `health_check` | Every 1 min | Checks Ollama, ChromaDB, system stats |
+| `market_check` | Every 5 min | BTC/ETH/SOL prices, alerts on >5% moves |
+| `news_digest` | Every 1 hour | Aggregates RSS feeds, sentiment summary |
+| `self_reflect` | Every 6 hours | Reviews performance, suggests improvements |
+
+### Features
+
+- Async execution with proper lifecycle management
+- Telegram alerts when tasks detect anomalies
+- Custom task scheduling via API or CLI
+- Task results logged for analysis
+
+---
+
+## Voice Interface
+
+Bruce can speak and listen (requires audio hardware).
+
+### Text-to-Speech (`modules/voice_engine.py`)
+
+- Offline TTS via pyttsx3 (no internet required)
+- Multiple voice options (system voices)
+- Configurable rate and volume
+- Save speech to WAV files
+
+### Speech-to-Text
+
+- Google Speech Recognition (online, free)
+- Sphinx (offline fallback)
+- Wake word detection ("Bruce")
+
+### Voice Chat Mode
+
+```bash
+python bruce_cli.py
+Federico: /voice
+# Bruce now speaks responses and listens for your voice
+# Say "Bruce" to activate, "stop" to exit
+```
+
+---
+
+## Plugin System
+
+Bruce supports hot-loadable plugins for extensibility.
+
+### Plugin Structure
+
+```python
+from modules.plugin_system import BrucePlugin
+
+class MyPlugin(BrucePlugin):
+    name = "my_plugin"
+    version = "1.0"
+    description = "Does something useful"
+
+    def on_load(self, bruce):
+        print("Plugin loaded!")
+
+    def get_tools(self):
+        return [{"name": "my_tool", "fn": self.my_function}]
+
+    def get_commands(self):
+        return {"/mycommand": self.handle_command}
+```
+
+### Plugin Manager
+
+| Function | Description |
+|----------|-------------|
+| `load_all()` | Scan `plugins/` directory, load all plugins |
+| `load_plugin(path)` | Load a single plugin |
+| `unload_plugin(name)` | Remove a plugin |
+| `reload_plugin(name)` | Hot-reload without restart |
+| `list_plugins()` | Show all plugins with status |
+
+### Plugin Hooks
+
+| Hook | When It Fires |
+|------|--------------|
+| `on_message(msg)` | Every user message |
+| `on_trade(data)` | Every trade execution |
+| `on_alert(data)` | Every alert triggered |
+| `on_learn(knowledge)` | When Bruce learns something new |
+| `on_startup()` | Bruce starts |
+| `on_shutdown()` | Bruce stops |
+
+---
+
+## Telegram Integration
+
+Bruce can send push notifications and be controlled via Telegram.
+
+### Bot Commands (`modules/telegram_bot.py`)
+
+| Command | Description |
+|---------|-------------|
+| `/start` | Welcome message |
+| `/status` | Full system status |
+| `/price <symbol>` | Live price from Binance |
+| `/agents` | List micro-agents |
+| `/swarm <question>` | Swarm analysis |
+| `/goal <title>` | Set a new goal |
+| `/reflect` | Self-reflection |
+| `/alert <symbol> <above/below> <price>` | Set price alert |
+| Any text | Forward to Bruce chat |
+
+### Alert System (`modules/telegram_alerts.py`)
+
+```python
+from modules.telegram_alerts import send_alert, send_price_alert, send_report
+
+send_alert("BTC broke above 90K!")
+send_price_alert("BTC/USDT", 90500.00, change=5.2)
+send_report("Daily market summary...", title="Daily Report")
+```
+
+### Setup
+
+1. Create bot with @BotFather on Telegram
+2. Set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` in `.env`
+3. Run: `python -m modules.telegram_bot`
 
 ---
 

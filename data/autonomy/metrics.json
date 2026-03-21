@@ -36,8 +36,8 @@
     100,
     100
   ],
-  "error_count": 6,
-  "success_count": 225,
+  "error_count": 8,
+  "success_count": 299,
   "uptime_start": "2026-03-21T13:27:57.825753+00:00",
   "anomalies_detected": [
     {
@@ -69,6 +69,18 @@
       "value": 500,
       "average": 100.0,
       "timestamp": "2026-03-21T13:58:57.834906+00:00"
+    },
+    {
+      "metric": "response_time",
+      "value": 500,
+      "average": 100.0,
+      "timestamp": "2026-03-21T19:51:03.434545+00:00"
+    },
+    {
+      "metric": "response_time",
+      "value": 500,
+      "average": 100.0,
+      "timestamp": "2026-03-21T19:53:40.430347+00:00"
     }
   ],
   "health_checks": [
@@ -522,6 +534,94 @@
       "anomalies": 5,
       "error_count": 6,
       "timestamp": "2026-03-21T16:14:23.842008+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 234,
+      "success_rate": 97.0,
+      "avg_response_ms": 103.9,
+      "p95_response_ms": 150,
+      "anomalies": 5,
+      "error_count": 7,
+      "timestamp": "2026-03-21T19:51:03.410291+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 269,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 6,
+      "error_count": 7,
+      "timestamp": "2026-03-21T19:51:03.459553+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 272,
+      "success_rate": 97.1,
+      "avg_response_ms": 103.9,
+      "p95_response_ms": 150,
+      "anomalies": 6,
+      "error_count": 8,
+      "timestamp": "2026-03-21T19:53:40.329011+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8,
+      "timestamp": "2026-03-21T19:53:40.505371+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8,
+      "timestamp": "2026-03-21T19:54:02.460743+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8,
+      "timestamp": "2026-03-21T19:55:26.663437+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8,
+      "timestamp": "2026-03-21T19:56:15.926061+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 307,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 7,
+      "error_count": 8,
+      "timestamp": "2026-03-21T19:58:18.019640+00:00"
     }
   ]
 }

@@ -514,5 +514,149 @@
     "created_at": "2026-03-21T13:59:07.712990+00:00",
     "deadline": null,
     "outcome": null
+  },
+  {
+    "id": "goal-038",
+    "title": "Learn shipping",
+    "description": "Master maritime logistics",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T19:51:03.365093+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-039",
+    "title": "Test goal",
+    "description": "Testing",
+    "priority": "medium",
+    "status": "active",
+    "progress": 50,
+    "steps": [
+      {
+        "note": "Halfway there",
+        "progress": 50,
+        "timestamp": "2026-03-21T19:51:03.378265+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T19:51:03.377266+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-040",
+    "title": "Quick goal",
+    "description": "Done fast",
+    "priority": "medium",
+    "status": "completed",
+    "progress": 100,
+    "steps": [
+      {
+        "note": "Done!",
+        "progress": 100,
+        "timestamp": "2026-03-21T19:51:03.391864+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T19:51:03.390864+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-041",
+    "title": "Test plan",
+    "description": "Execute steps",
+    "priority": "medium",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T19:51:03.404017+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-042",
+    "title": "Learn shipping",
+    "description": "Master maritime logistics",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T19:53:40.204211+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-043",
+    "title": "Test goal",
+    "description": "Testing",
+    "priority": "medium",
+    "status": "active",
+    "progress": 50,
+    "steps": [
+      {
+        "note": "Halfway there",
+        "progress": 50,
+        "timestamp": "2026-03-21T19:53:40.239743+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T19:53:40.236095+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-044",
+    "title": "Quick goal",
+    "description": "Done fast",
+    "priority": "medium",
+    "status": "completed",
+    "progress": 100,
+    "steps": [
+      {
+        "note": "Done!",
+        "progress": 100,
+        "timestamp": "2026-03-21T19:53:40.275767+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T19:53:40.271567+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-045",
+    "title": "Test plan",
+    "description": "Execute steps",
+    "priority": "medium",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T19:53:40.306591+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-046",
+    "title": "Master crypto",
+    "description": "Learn everything about DeFi",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T19:54:02.394032+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-047",
+    "title": "Master crypto",
+    "description": "Learn everything about DeFi",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T19:56:15.883860+00:00",
+    "deadline": null,
+    "outcome": null
   }
 ]
