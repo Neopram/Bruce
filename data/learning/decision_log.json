@@ -104,8 +104,50 @@
       "outcome": null,
       "success": null,
       "timestamp": "2026-03-21T13:33:14.988132+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "Price at support level",
+      "outcome": "Profit +5%",
+      "success": true,
+      "timestamp": "2026-03-21T13:41:28.250393+00:00"
+    },
+    {
+      "decision": "Sell ETH",
+      "context": "Overbought RSI",
+      "outcome": "Loss -2%",
+      "success": false,
+      "timestamp": "2026-03-21T13:41:28.250393+00:00"
+    },
+    {
+      "decision": "Buy BTC",
+      "context": "BTC at support with high volume",
+      "outcome": "Profit",
+      "success": true,
+      "timestamp": "2026-03-21T13:41:28.264764+00:00"
+    },
+    {
+      "decision": "Set goal: Master crypto",
+      "context": "Learn everything about DeFi",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:41:37.161205+00:00"
+    },
+    {
+      "decision": "Set goal: Shipping Intelligence",
+      "context": "Build comprehensive shipping monitoring",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:41:38.102408+00:00"
+    },
+    {
+      "decision": "Set goal: Master Shipping",
+      "context": "Become expert in global shipping logistics",
+      "outcome": null,
+      "success": null,
+      "timestamp": "2026-03-21T13:42:48.196079+00:00"
     }
   ],
   "success_rate": 0.6666666666666666,
-  "total_decisions": 15
+  "total_decisions": 21
 }

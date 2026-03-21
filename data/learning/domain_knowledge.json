@@ -50,7 +50,19 @@
       ],
       "learned_at": "2026-03-21T13:29:06.281885+00:00",
       "confidence": 0.32999999999999996
+    },
+    "test_knowledge": {
+      "facts": [
+        "The Baltic Dry Index measures shipping costs",
+        "IMO regulations affect vessel operations",
+        "Panamax ships max 5000 TEU"
+      ],
+      "sources": [
+        "manual"
+      ],
+      "learned_at": "2026-03-21T13:42:47.920006+00:00",
+      "confidence": 0.32999999999999996
     }
   },
-  "total_facts": 14
+  "total_facts": 17
 }

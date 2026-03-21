@@ -70,5 +70,61 @@
     "result": "Executed: Step 3: Report",
     "elapsed_ms": 0.0,
     "timestamp": "2026-03-21T13:32:20.532645+00:00"
+  },
+  {
+    "plan_id": "plan-004",
+    "step": 1,
+    "description": "Step 1: Gather data",
+    "result": "Executed: Step 1: Gather data",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:41:28.377629+00:00"
+  },
+  {
+    "plan_id": "plan-004",
+    "step": 2,
+    "description": "Step 2: Analyze",
+    "result": "Executed: Step 2: Analyze",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:41:28.377629+00:00"
+  },
+  {
+    "plan_id": "plan-004",
+    "step": 3,
+    "description": "Step 3: Report",
+    "result": "Executed: Step 3: Report",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:41:28.377629+00:00"
+  },
+  {
+    "plan_id": "plan-005",
+    "step": 1,
+    "description": "Research major shipping routes",
+    "result": "Executed: Research major shipping routes",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:42:48.198403+00:00"
+  },
+  {
+    "plan_id": "plan-005",
+    "step": 2,
+    "description": "Analyze freight rate trends",
+    "result": "Executed: Analyze freight rate trends",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:42:48.198403+00:00"
+  },
+  {
+    "plan_id": "plan-005",
+    "step": 3,
+    "description": "Monitor Baltic Dry Index",
+    "result": "Executed: Monitor Baltic Dry Index",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:42:48.198403+00:00"
+  },
+  {
+    "plan_id": "plan-005",
+    "step": 4,
+    "description": "Identify disruption risks",
+    "result": "Executed: Identify disruption risks",
+    "elapsed_ms": 0.0,
+    "timestamp": "2026-03-21T13:42:48.198403+00:00"
   }
 ]

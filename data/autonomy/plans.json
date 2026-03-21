@@ -76,5 +76,63 @@
     ],
     "created_at": "2026-03-21T13:32:20.531646+00:00",
     "status": "completed"
+  },
+  {
+    "id": "plan-004",
+    "goal_id": "goal-022",
+    "steps": [
+      {
+        "step": 1,
+        "description": "Step 1: Gather data",
+        "status": "completed",
+        "result": "Executed: Step 1: Gather data"
+      },
+      {
+        "step": 2,
+        "description": "Step 2: Analyze",
+        "status": "completed",
+        "result": "Executed: Step 2: Analyze"
+      },
+      {
+        "step": 3,
+        "description": "Step 3: Report",
+        "status": "completed",
+        "result": "Executed: Step 3: Report"
+      }
+    ],
+    "created_at": "2026-03-21T13:41:28.376289+00:00",
+    "status": "completed"
+  },
+  {
+    "id": "plan-005",
+    "goal_id": "goal-025",
+    "steps": [
+      {
+        "step": 1,
+        "description": "Research major shipping routes",
+        "status": "completed",
+        "result": "Executed: Research major shipping routes"
+      },
+      {
+        "step": 2,
+        "description": "Analyze freight rate trends",
+        "status": "completed",
+        "result": "Executed: Analyze freight rate trends"
+      },
+      {
+        "step": 3,
+        "description": "Monitor Baltic Dry Index",
+        "status": "completed",
+        "result": "Executed: Monitor Baltic Dry Index"
+      },
+      {
+        "step": 4,
+        "description": "Identify disruption risks",
+        "status": "completed",
+        "result": "Executed: Identify disruption risks"
+      }
+    ],
+    "created_at": "2026-03-21T13:42:48.197444+00:00",
+    "status": "completed"
   }
 ]

@@ -178,5 +178,85 @@
         "priority": "low"
       }
     ]
+  },
+  {
+    "timestamp": "2026-03-21T13:41:28.466338+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 152,
+      "success_rate": 97.4,
+      "avg_response_ms": 103.9,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 4
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:41:37.352567+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 152,
+      "success_rate": 97.4,
+      "avg_response_ms": 103.9,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 4
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:41:38.258918+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 152,
+      "success_rate": 97.4,
+      "avg_response_ms": 103.9,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 4
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-03-21T13:42:48.207322+00:00",
+    "health": {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 154,
+      "success_rate": 97.4,
+      "avg_response_ms": 103.4,
+      "p95_response_ms": 150,
+      "anomalies": 4,
+      "error_count": 4
+    },
+    "suggestions": [
+      {
+        "area": "general",
+        "suggestion": "System performing well. Continue monitoring.",
+        "priority": "low"
+      }
+    ]
   }
 ]

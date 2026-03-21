@@ -54,32 +54,36 @@ class BruceAgent:
         logger.info(f"Bruce Agent initialized | LLM: {self._llm_name} | Status: {self.identity.status}")
 
     def _connect_llm(self):
-        """Connect to the best available LLM."""
-        # Try Ollama first
+        """Connect to the best available LLM (Ollama, OpenAI, Anthropic, or fallback)."""
+        # Try unified LLM client first (handles Ollama, OpenAI, Anthropic)
         try:
-            from ollama_client import get_ollama
-            client = get_ollama()
+            from llm_client import get_llm
+            client = get_llm()
             if client.is_available():
-                self._llm_fn = lambda prompt: client.generate(prompt, system=BRUCE_SYSTEM_PROMPT)
-                self._llm_name = f"ollama/{client.model}"
+                self._llm_fn = lambda prompt: client.generate(
+                    prompt, system=BRUCE_SYSTEM_PROMPT
+                )
+                self._llm_chat_fn = lambda messages: client.chat(messages)
+                self._llm_name = f"{client.provider}/{client.model}"
                 self.factory.set_llm(self._llm_fn)
-                logger.info(f"Connected to Ollama: {client.model}")
+                logger.info(f"Brain connected: {self._llm_name}")
                 return
         except Exception as e:
-            logger.debug(f"Ollama not available: {e}")
+            logger.debug(f"Unified LLM client failed: {e}")
 
-        # Try orchestrator fallback
+        # Fallback to orchestrator (uses local transformer models)
         try:
             from orchestrator import cognitive_infer
             self._llm_fn = lambda prompt: cognitive_infer(prompt, task="chat").get("response", "")
             self._llm_name = "orchestrator"
             self.factory.set_llm(self._llm_fn)
-            logger.info("Connected to orchestrator (fallback)")
+            logger.info("Brain: orchestrator (fallback)")
             return
         except Exception as e:
             logger.debug(f"Orchestrator not available: {e}")
 
-        logger.warning("No LLM available. Bruce will operate in limited mode.")
+        self._llm_fn = None
+        logger.warning("No brain available. Run: python scripts/install_brain.py")
 
     def _spawn_default_agents(self):
         """Spawn Bruce's default team of micro-agents."""

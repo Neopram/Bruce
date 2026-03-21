@@ -250,5 +250,101 @@
     "created_at": "2026-03-21T13:33:14.987131+00:00",
     "deadline": null,
     "outcome": null
+  },
+  {
+    "id": "goal-019",
+    "title": "Learn shipping",
+    "description": "Master maritime logistics",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:41:28.325021+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-020",
+    "title": "Test goal",
+    "description": "Testing",
+    "priority": "medium",
+    "status": "active",
+    "progress": 50,
+    "steps": [
+      {
+        "note": "Halfway there",
+        "progress": 50,
+        "timestamp": "2026-03-21T13:41:28.337169+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T13:41:28.337169+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-021",
+    "title": "Quick goal",
+    "description": "Done fast",
+    "priority": "medium",
+    "status": "completed",
+    "progress": 100,
+    "steps": [
+      {
+        "note": "Done!",
+        "progress": 100,
+        "timestamp": "2026-03-21T13:41:28.356641+00:00"
+      }
+    ],
+    "created_at": "2026-03-21T13:41:28.356641+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-022",
+    "title": "Test plan",
+    "description": "Execute steps",
+    "priority": "medium",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:41:28.364836+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-023",
+    "title": "Master crypto",
+    "description": "Learn everything about DeFi",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:41:37.161205+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-024",
+    "title": "Shipping Intelligence",
+    "description": "Build comprehensive shipping monitoring",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:41:38.102408+00:00",
+    "deadline": null,
+    "outcome": null
+  },
+  {
+    "id": "goal-025",
+    "title": "Master Shipping",
+    "description": "Become expert in global shipping logistics",
+    "priority": "high",
+    "status": "active",
+    "progress": 0,
+    "steps": [],
+    "created_at": "2026-03-21T13:42:48.194399+00:00",
+    "deadline": null,
+    "outcome": null
   }
 ]
