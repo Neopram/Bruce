@@ -78,6 +78,17 @@ def _try_import_device_info():
         return None
 
 
+def _try_import_rag_engine():
+    try:
+        from modules.rag_engine import get_rag_engine
+        engine = get_rag_engine()
+        logger.info("RAG engine loaded (%s)", engine.get_stats().get("collection"))
+        return engine
+    except Exception as e:
+        logger.debug("RAG engine unavailable: %s", e)
+        return None
+
+
 # ---------------------------------------------------------------------------
 # Singleton instances (created on first use)
 # ---------------------------------------------------------------------------
@@ -89,6 +100,8 @@ _memory = None
 _personality = None
 _vector_logger = None
 _device_fn = None
+_rag_engine = None
+_rag_checked = False
 
 
 def _get_ollama():
@@ -147,6 +160,14 @@ def _get_device_info() -> Dict[str, Any]:
     return {"gpu_available": False}
 
 
+def _get_rag_engine():
+    global _rag_engine, _rag_checked
+    if not _rag_checked:
+        _rag_engine = _try_import_rag_engine()
+        _rag_checked = True
+    return _rag_engine
+
+
 # ---------------------------------------------------------------------------
 # Context assembly
 # ---------------------------------------------------------------------------
@@ -190,10 +211,25 @@ def _build_context(prompt: str, task: str, user_id: Optional[str]) -> str:
         except Exception as e:
             logger.debug("Memory recall skipped: %s", e)
 
-    # 3. Task hint
+    # 3. RAG context enrichment
+    rag = _get_rag_engine()
+    if rag is not None:
+        try:
+            rag_result = rag.rag_query(prompt, top_k=5, max_context_chars=2000)
+            if rag_result.get("chunks_retrieved", 0) > 0:
+                parts.append(rag_result["augmented_prompt"].split("Question:")[0].strip())
+                logger.debug(
+                    "RAG enriched prompt with %d chunks (%.1fms)",
+                    rag_result["chunks_retrieved"],
+                    rag_result["elapsed_ms"],
+                )
+        except Exception as e:
+            logger.debug("RAG enrichment skipped: %s", e)
+
+    # 4. Task hint
     parts.append(f"[Task: {task}]")
 
-    # 4. User prompt
+    # 5. User prompt
     parts.append(prompt)
 
     return "\n\n".join(parts)

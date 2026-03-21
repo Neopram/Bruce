@@ -193,6 +193,38 @@ class ToolRegistry:
             {"expression": "Math expression, e.g. '100 * 1.05 ** 10'"},
         )
 
+        # === Web Browsing & News ===
+        self.register(
+            "web_search",
+            self._tool_web_search,
+            "Search the web using DuckDuckGo. Returns titles, URLs, and snippets.",
+            {"query": "Search query string"},
+        )
+
+        self.register(
+            "fetch_url",
+            self._tool_fetch_url,
+            "Fetch a URL and extract clean readable text from it.",
+            {"url": "URL to fetch and extract text from"},
+        )
+
+        self.register(
+            "get_news",
+            self._tool_get_news,
+            "Get latest news headlines. Category: crypto, shipping, market, or a custom topic.",
+            {"category": "crypto, shipping, market, or any topic string"},
+        )
+
+        # === Communication ===
+        self.register(
+            "telegram_alert",
+            self._tool_telegram_alert,
+            "Send a message to Federico via Telegram. Use for alerts, reports, or any push notification.",
+            {"message": "Message text to send", "alert_type": "Type: 'alert', 'price', or 'report'",
+             "symbol": "For price alerts: trading pair", "price": "For price alerts: current price",
+             "change": "For price alerts: 24h change %"},
+        )
+
         # === System ===
         self.register(
             "shell",
@@ -348,6 +380,93 @@ class ToolRegistry:
             return str(result)
         except Exception as e:
             return f"Calc error: {e}"
+
+    def _tool_web_search(self, query: str) -> str:
+        """Search the web via DuckDuckGo."""
+        from modules.web_browser import search_web
+        result = search_web(query)
+        if not result["success"]:
+            return json.dumps({"error": result["error"]})
+        lines = [f"Web search results for: {query}\n"]
+        for i, r in enumerate(result["results"], 1):
+            lines.append(f"{i}. {r['title']}\n   {r['url']}\n   {r['snippet']}\n")
+        return "\n".join(lines)
+
+    def _tool_fetch_url(self, url: str) -> str:
+        """Fetch and extract text from a URL."""
+        from modules.web_browser import fetch_url
+        result = fetch_url(url)
+        if not result["success"]:
+            return json.dumps({"error": result["error"], "url": url})
+        title = result["title"]
+        text = result["text"]
+        return f"Title: {title}\nURL: {url}\n\n{text}"
+
+    def _tool_get_news(self, category: str) -> str:
+        """Get news for a category or topic."""
+        from modules.news_monitor import (
+            get_crypto_news, get_shipping_news, get_market_news, get_sentiment,
+        )
+        from modules.web_browser import fetch_news
+
+        category_lower = category.lower().strip()
+
+        if category_lower == "crypto":
+            result = get_crypto_news(max_total=15)
+        elif category_lower == "shipping":
+            result = get_shipping_news(max_total=15)
+        elif category_lower == "market":
+            result = get_market_news(max_total=15)
+        else:
+            # Custom topic -- use DuckDuckGo news search
+            web_result = fetch_news(category)
+            if not web_result["success"]:
+                return json.dumps({"error": web_result.get("error", "No news found"), "topic": category})
+            articles = web_result.get("articles", [])
+            headlines = [a["title"] for a in articles]
+            sentiment = get_sentiment(headlines)
+            lines = [f"News for: {category} ({len(articles)} articles, sentiment: {sentiment['overall']})\n"]
+            for i, a in enumerate(articles[:15], 1):
+                lines.append(f"{i}. [{a.get('source', '')}] {a['title']}\n   {a['url']}\n")
+            return "\n".join(lines)
+
+        articles = result.get("articles", [])
+        headlines = [a["title"] for a in articles]
+        sentiment = get_sentiment(headlines)
+        lines = [
+            f"{category_lower.title()} News ({result['count']} articles, "
+            f"sentiment: {sentiment['overall']}, score: {sentiment['score']})\n"
+        ]
+        for i, a in enumerate(articles[:15], 1):
+            lines.append(f"{i}. [{a['source']}] {a['title']}\n   {a['url']}\n")
+        return "\n".join(lines)
+
+    def _tool_telegram_alert(
+        self,
+        message: str,
+        alert_type: str = "alert",
+        symbol: str = None,
+        price: float = None,
+        change: float = None,
+    ) -> str:
+        """Send a Telegram alert to Federico."""
+        try:
+            from modules.telegram_alerts import send_alert, send_price_alert, send_report
+
+            alert_type = (alert_type or "alert").lower().strip()
+
+            if alert_type == "price" and symbol and price is not None:
+                result = send_price_alert(symbol, float(price), float(change or 0))
+            elif alert_type == "report":
+                result = send_report(message)
+            else:
+                result = send_alert(message)
+
+            if result.get("ok"):
+                return f"Telegram {alert_type} sent successfully"
+            return f"Telegram send failed: {result.get('error', 'unknown error')}"
+        except Exception as e:
+            return f"Telegram alert error: {e}"
 
     def _tool_shell(self, command: str) -> str:
         """Execute shell command with safety limits."""
