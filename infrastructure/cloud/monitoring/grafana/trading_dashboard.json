@@ -1,0 +1,136 @@
+{
+    "id": null,
+    "uid": "trading-bot-dashboard",
+    "title": "Trading Bot Dashboard",
+    "tags": ["trading", "bot", "monitoring"],
+    "timezone": "browser",
+    "schemaVersion": 30,
+    "version": 1,
+    "refresh": "5s",
+    "panels": [
+      {
+        "type": "stat",
+        "title": "Trading Bot Status",
+        "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "up{service='trading_bot'}",
+            "legendFormat": "Trading Bot",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"] },
+          "orientation": "horizontal",
+          "colorMode": "value",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "green", "value": 1 }
+            ]
+          }
+        }
+      },
+      {
+        "type": "graph",
+        "title": "Latency (ms)",
+        "gridPos": { "x": 6, "y": 0, "w": 12, "h": 4 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{service='trading_bot'}[5m]))",
+            "legendFormat": "95th Percentile Latency",
+            "refId": "B"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxes": [
+          { "format": "ms", "label": "Latency", "logBase": 1 },
+          { "format": "short", "label": null }
+        ]
+      },
+      {
+        "type": "stat",
+        "title": "Trading Volume (5 min)",
+        "gridPos": { "x": 0, "y": 4, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "sum(rate(trading_volume[5m]))",
+            "legendFormat": "Volume",
+            "refId": "C"
+          }
+        ],
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"] },
+          "orientation": "horizontal",
+          "colorMode": "value",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "green", "value": 10 }
+            ]
+          }
+        }
+      },
+      {
+        "type": "time-series",
+        "title": "CPU Usage",
+        "gridPos": { "x": 6, "y": 4, "w": 12, "h": 4 },
+        "targets": [
+          {
+            "expr": "rate(node_cpu_seconds_total{mode!='idle'}[5m])",
+            "legendFormat": "{{instance}}",
+            "refId": "D"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxes": [
+          { "format": "percent", "label": "CPU Usage", "logBase": 1 },
+          { "format": "short", "label": null }
+        ]
+      },
+      {
+        "type": "time-series",
+        "title": "Memory Usage",
+        "gridPos": { "x": 0, "y": 8, "w": 12, "h": 4 },
+        "targets": [
+          {
+            "expr": "node_memory_Active_bytes / node_memory_MemTotal_bytes * 100",
+            "legendFormat": "{{instance}}",
+            "refId": "E"
+          }
+        ],
+        "xaxis": { "mode": "time" },
+        "yaxes": [
+          { "format": "percent", "label": "Memory Usage", "logBase": 1 },
+          { "format": "short", "label": null }
+        ]
+      },
+      {
+        "type": "stat",
+        "title": "Available Disk Space",
+        "gridPos": { "x": 12, "y": 8, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "node_filesystem_avail_bytes{fstype!~'tmpfs|overlay'} / node_filesystem_size_bytes{fstype!~'tmpfs|overlay'} * 100",
+            "legendFormat": "{{instance}}",
+            "refId": "F"
+          }
+        ],
+        "options": {
+          "reduceOptions": { "calcs": ["lastNotNull"] },
+          "orientation": "horizontal",
+          "colorMode": "value",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": 20 },
+              { "color": "green", "value": 50 }
+            ]
+          }
+        }
+      }
+    ]
+  }
+  

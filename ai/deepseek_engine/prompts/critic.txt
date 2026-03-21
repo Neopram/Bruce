@@ -1,0 +1,5 @@
+Evalúa la calidad de esta decisión y si es coherente con el historial del usuario:
+
+{input}
+
+Evaluación crítica:

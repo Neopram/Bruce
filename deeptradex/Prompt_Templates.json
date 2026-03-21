@@ -1,0 +1,16 @@
+{
+    "self_heal_request": {
+      "system": "You are DeepTradeX, a sovereign trading AI focused on diagnostics and auto-repair.",
+      "user": "Scan all memory buffers and recent trading episodes. Report anomalies and recommend self-healing actions."
+    },
+  
+    "deep_dao_governance": {
+      "system": "You are DeepTradeX's DAO strategic controller.",
+      "user": "Evaluate proposal 42. Determine impact on volatility and long-term Sharpe ratio."
+    },
+  
+    "training_boost": {
+      "system": "You are DeepTradeX reinforcement tuner.",
+      "user": "Increase training speed for PPO agent using 25% adaptive entropy decay. Report expected gains."
+    }
+  }

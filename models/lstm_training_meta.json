@@ -1,0 +1,14 @@
+{
+  "symbol": "BTC/USDT",
+  "method": "Linear Regression (fallback)",
+  "epochs": 30,
+  "look_back": 60,
+  "duration_s": 0.0,
+  "test_mse": 0.018116,
+  "test_mae": 0.116894,
+  "test_rmse": 0.134597,
+  "directional_accuracy": 0.3667,
+  "train_samples": 244,
+  "test_samples": 61,
+  "trained_at": "2026-03-21T09:33:05.011896"
+}

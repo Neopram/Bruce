@@ -1,0 +1,1031 @@
+{
+  "total_files_scanned": 383,
+  "total_functions": 691,
+  "total_routes": 34,
+  "disconnected_functions": {
+    "api.py": [
+      "chat",
+      "get_state",
+      "get_profile",
+      "save_feedback",
+      "simulate_decision"
+    ],
+    "archetypes.py": [
+      "get_arquetipo"
+    ],
+    "bias_filter.py": [
+      "clean"
+    ],
+    "code_genius.py": [
+      "generate",
+      "get_history",
+      "suggest_improvements"
+    ],
+    "cognitive_index.py": [
+      "search"
+    ],
+    "deepseek_controller.py": [
+      "deepseek_thought",
+      "handle_command"
+    ],
+    "deepseek_editor.py": [
+      "_load_status",
+      "_save_status",
+      "get_model_status",
+      "infer",
+      "_save_last_inference"
+    ],
+    "enterprise_brain.py": [
+      "simulate_executive_decision",
+      "simulate_executive_decision",
+      "get_history"
+    ],
+    "feedback_loop.py": [
+      "learn_from"
+    ],
+    "infer_deepseek.py": [
+      "run"
+    ],
+    "infer_phi3.py": [
+      "run"
+    ],
+    "infer_tinyllama.py": [
+      "run"
+    ],
+    "interaction_modulator.py": [
+      "modulate"
+    ],
+    "knowledge_ingestor.py": [
+      "ingest"
+    ],
+    "macro_events.py": [
+      "summary"
+    ],
+    "memory.py": [
+      "log_interaction",
+      "store_decision",
+      "recall",
+      "summarize"
+    ],
+    "meta_agent_trainer.py": [
+      "train_new_agent"
+    ],
+    "model_router.py": [
+      "route_inference"
+    ],
+    "model_selector.py": [
+      "select_model"
+    ],
+    "narrador.py": [
+      "explicar_operacion",
+      "contrafactual"
+    ],
+    "orchestrator.py": [
+      "cognitive_infer"
+    ],
+    "personality.py": [
+      "update_from_text",
+      "update_from_market_data",
+      "update_from_emotion",
+      "random_mutation",
+      "_set_persona",
+      "current_profile"
+    ],
+    "security.py": [
+      "decode_token"
+    ],
+    "self_reflection.py": [
+      "evaluate",
+      "update_knowledge",
+      "add_new_domain"
+    ],
+    "speech_engine.py": [
+      "synthesize_speech",
+      "synthesize_speech",
+      "list_voices",
+      "simulate_audio_feedback"
+    ],
+    "strategic_controller.py": [
+      "system_diagnostics",
+      "generate_meta_agent",
+      "self_modify_code"
+    ],
+    "sync_monitor.py": [
+      "get_device_info"
+    ],
+    "user_biometrics.py": [
+      "_generate_initial_state",
+      "_simulate_fluctuation",
+      "refresh",
+      "get_metrics",
+      "as_json"
+    ],
+    "vector_logger.py": [
+      "to_dict",
+      "log",
+      "_persist",
+      "get_recent_logs",
+      "clear_memory",
+      "load_logs_from_disk",
+      "search"
+    ],
+    "video_generator.py": [
+      "generate_audio",
+      "generate_clip_from_block",
+      "generate_full_video",
+      "generate_from_script",
+      "export_metadata"
+    ],
+    "web_scraper.py": [
+      "fetch_data",
+      "_fetch_json",
+      "_fetch_html",
+      "_fetch_rss"
+    ],
+    "ai\\deepseek_engine\\actions.py": [
+      "execute_action"
+    ],
+    "ai\\deepseek_engine\\brain.py": [
+      "think"
+    ],
+    "ai\\deepseek_engine\\interfaces.py": [
+      "deepseek_call"
+    ],
+    "ai\\deepseek_engine\\memory_bridge.py": [
+      "get_context_for_user"
+    ],
+    "ai\\emotion_engine\\emotion_detector.py": [
+      "detect_emotion_from_voice",
+      "detect_emotion_from_text",
+      "detect_emotion_from_image"
+    ],
+    "ai\\emotion_engine\\emotion_memory.py": [
+      "record",
+      "get_last",
+      "summarize_emotional_trajectory"
+    ],
+    "ai\\emotion_engine\\emotion_response.py": [
+      "generate_emotional_response"
+    ],
+    "ai\\emotion_engine\\emotion_state.py": [
+      "get_emotion",
+      "update_emotion",
+      "adjust_emotion",
+      "_update_mood_from_state"
+    ],
+    "ai\\trading_engine\\quant_predictor.py": [
+      "monte_carlo_forecast",
+      "garch_forecast",
+      "lstm_predictor_stub"
+    ],
+    "ai\\trading_engine\\simulator.py": [
+      "simulate_strategy"
+    ],
+    "ai\\trading_engine\\strategy_evolver.py": [
+      "mutate_strategy_params",
+      "crossover",
+      "fitness_function",
+      "evolve_population"
+    ],
+    "ai\\trading_engine\\strategy_hub.py": [
+      "list_strategies",
+      "select_strategy"
+    ],
+    "app\\main.py": [
+      "update_market",
+      "execute_order",
+      "ai_prediction",
+      "run_flask"
+    ],
+    "app\\agents\\rl_agent.py": [
+      "_create_model",
+      "_load_model",
+      "train",
+      "predict",
+      "retrain_incremental"
+    ],
+    "app\\ai\\advanced_quant_ai.py": [
+      "_build_generator",
+      "_build_discriminator",
+      "_compile_gan",
+      "generate_market_data",
+      "forward",
+      "_create_trading_env",
+      "_build_lstm_model",
+      "train_hybrid_model",
+      "trade_with_hybrid_model",
+      "reset",
+      "step"
+    ],
+    "app\\ai\\compliance_governance_ai.py": [
+      "train_model",
+      "detect_suspicious_trades",
+      "check_transaction",
+      "assess_systemic_risk",
+      "audit_smart_contract"
+    ],
+    "app\\ai\\exotic_quant_ai.py": [
+      "adapt",
+      "_create_env",
+      "train_swarm_ai",
+      "choose_strategy",
+      "_build_encoder",
+      "_build_decoder",
+      "generate_market_scenarios",
+      "reset",
+      "step"
+    ],
+    "app\\ai\\futuristic_quant_ai.py": [
+      "execute_quantum_trade",
+      "allocate_fund",
+      "regulate_market"
+    ],
+    "app\\ai\\hft_ai_defense.py": [
+      "_create_hft_env",
+      "train_execution_ai",
+      "detect_spoofing",
+      "detect_quote_stuffing",
+      "detect_iceberg_orders",
+      "reset",
+      "step"
+    ],
+    "app\\ai\\hft_ai_trading.py": [
+      "train_hft_ai",
+      "trade_with_hft_ai",
+      "reset",
+      "_fetch_order_book",
+      "_detect_manipulation",
+      "_next_observation",
+      "step",
+      "render"
+    ],
+    "app\\ai\\institutional_ai_security.py": [
+      "train_audit_model",
+      "audit_trades",
+      "check_sanctions",
+      "detect_rug_pulls",
+      "simulate_extreme_market_scenarios"
+    ],
+    "app\\ai\\legal_risk_alpha_ai.py": [
+      "audit_contract",
+      "simulate_market_crash",
+      "generate_alpha_signals",
+      "detect_market_state"
+    ],
+    "app\\ai\\legendary_quant_ai.py": [
+      "predict",
+      "analyze_news",
+      "optimize"
+    ],
+    "app\\ai\\reinforcement_trading.py": [
+      "train_rl_model",
+      "trade_with_rl",
+      "reset",
+      "_next_observation",
+      "step",
+      "render"
+    ],
+    "app\\ai\\risk_optimizer.py": [
+      "fetch_risk_data",
+      "optimize_exposure",
+      "hedge_positions",
+      "execute_dynamic_risk_control"
+    ],
+    "app\\ai\\ultimate_execution_risk_alpha.py": [
+      "_create_execution_env",
+      "train_execution_ai",
+      "adjust_leverage",
+      "_build_generator",
+      "_build_discriminator",
+      "generate_alpha_signals",
+      "reset",
+      "step"
+    ],
+    "app\\ai\\ultimate_quant_ai.py": [
+      "optimize",
+      "evaluate",
+      "evolve_strategies",
+      "analyze_news",
+      "_create_env",
+      "train_multi_agent_system",
+      "reset",
+      "step"
+    ],
+    "app\\ai\\ultimate_quant_ai_100.py": [
+      "predict",
+      "adapt"
+    ],
+    "app\\api\\middleware.py": [
+      "generate_token",
+      "generate_refresh_token"
+    ],
+    "app\\api\\throttling.py": [
+      "is_allowed",
+      "get_remaining_requests",
+      "get_penalty_time",
+      "check_rate_limit",
+      "test_endpoint"
+    ],
+    "app\\api\\websocket.py": [
+      "handle_connect",
+      "handle_disconnect",
+      "handle_custom_event",
+      "initialize",
+      "broadcast_message",
+      "connect_to_okx",
+      "reconnect",
+      "process_event_queue",
+      "run_socketio",
+      "on_message",
+      "on_error",
+      "on_close",
+      "on_open"
+    ],
+    "app\\config\\feature_flags.py": [
+      "load_flags",
+      "is_enabled",
+      "log_flags"
+    ],
+    "app\\config\\secrets_loader.py": [
+      "_load_encryption_key",
+      "_encrypt",
+      "_decrypt",
+      "_load_secrets",
+      "get_secret",
+      "generate_token",
+      "generate_refresh_token",
+      "revoke_token"
+    ],
+    "app\\core\\archetypes.py": [
+      "get_arquetipo"
+    ],
+    "app\\core\\auth_utils.py": [
+      "load_private_key",
+      "load_public_key",
+      "get_current_user"
+    ],
+    "app\\core\\bias_filter.py": [
+      "clean"
+    ],
+    "app\\core\\macro_events.py": [
+      "summary"
+    ],
+    "app\\core\\memory.py": [
+      "log_interaction",
+      "store_decision",
+      "recall",
+      "summarize"
+    ],
+    "app\\core\\narrador.py": [
+      "explicar_operacion",
+      "contrafactual"
+    ],
+    "app\\core\\personality.py": [
+      "update",
+      "current_profile"
+    ],
+    "app\\core\\volatility_guard.py": [
+      "get_market_volatility",
+      "should_guard_activate",
+      "guardian_check"
+    ],
+    "app\\dashboard\\main.py": [
+      "start_websocket_listener",
+      "update_price_chart",
+      "update_order_book",
+      "update_ai_predictions"
+    ],
+    "app\\dashboard\\risk_advanced.py": [
+      "update_advanced_risk"
+    ],
+    "app\\dashboard\\risk_analytics.py": [
+      "update_risk_analytics"
+    ],
+    "app\\dashboard\\risk_hf_analysis.py": [
+      "update_hf_risk"
+    ],
+    "app\\dashboard\\risk_management.py": [
+      "update_risk_monitoring",
+      "save_risk_settings"
+    ],
+    "app\\dashboard\\trade_execution.py": [
+      "execute_trade"
+    ],
+    "app\\institutional\\backtest_engine.py": [
+      "run_backtest"
+    ],
+    "app\\institutional\\geo_risk.py": [
+      "current_alerts",
+      "global_stability_index"
+    ],
+    "app\\institutional\\gov_insight.py": [
+      "generate_financial_stability_report",
+      "generate_monthly_overview"
+    ],
+    "app\\institutional\\macro_feeds.py": [
+      "fetch_imf_data",
+      "fetch_world_bank_data",
+      "fetch_national_api"
+    ],
+    "app\\institutional\\macro_model.py": [
+      "simulate_var",
+      "run_garch",
+      "cointegration_test"
+    ],
+    "app\\institutional\\portfolio_optimizer.py": [
+      "optimize_mean_variance",
+      "optimize_cvar",
+      "black_litterman"
+    ],
+    "app\\institutional\\quant_strategies.py": [
+      "momentum_signal",
+      "mean_reversion",
+      "cointegration_entry"
+    ],
+    "app\\institutional\\stress_test.py": [
+      "simulate_crisis"
+    ],
+    "app\\llm\\agents\\gorilla_trader.py": [
+      "reason"
+    ],
+    "app\\modules\\ai_macro_event_analysis.py": [
+      "fetch_macro_events",
+      "analyze_macro_impact"
+    ],
+    "app\\modules\\ai_trading_psychology.py": [
+      "detect_fomo_trading",
+      "detect_panic_selling",
+      "detect_overtrading",
+      "detect_trade_stress"
+    ],
+    "app\\modules\\alert_system.py": [
+      "validate_email_addresses"
+    ],
+    "app\\modules\\data_collector.py": [
+      "_generate_signature",
+      "_get_headers",
+      "get_order_book",
+      "process_order_book",
+      "fetch_and_process_order_book"
+    ],
+    "app\\modules\\data_transformer.py": [
+      "transform",
+      "_validate_raw_data",
+      "_convert_timestamp",
+      "_convert_to_float"
+    ],
+    "app\\modules\\economic_event_predictor.py": [
+      "fetch_macro_events",
+      "analyze_macro_impact"
+    ],
+    "app\\modules\\portfolio_optimizer.py": [
+      "fetch_market_data",
+      "calculate_portfolio_metrics",
+      "optimize_portfolio",
+      "monte_carlo_simulation",
+      "negative_sharpe"
+    ],
+    "app\\modules\\sentiment_analysis_engine.py": [
+      "fetch_news_headlines",
+      "fetch_twitter_sentiment",
+      "analyze_sentiment"
+    ],
+    "app\\modules\\volume_tracker.py": [
+      "update_volume",
+      "calculate_average_volume",
+      "detect_spike",
+      "fetch_current_volume",
+      "process_volume"
+    ],
+    "app\\modules\\ai\\hybrid_ai_trader.py": [
+      "forward"
+    ],
+    "app\\modules\\ai\\rl_agent.py": [
+      "_init_environment",
+      "_init_model",
+      "train_episode",
+      "_log_episode",
+      "_auto_save_model"
+    ],
+    "app\\modules\\ai\\strategy_optimizer.py": [
+      "detect_market_regime",
+      "optimize_strategy",
+      "backtest_strategy",
+      "objective_function"
+    ],
+    "app\\modules\\analytics\\sentiment_trading_engine.py": [
+      "fetch_twitter_sentiment",
+      "fetch_news_sentiment"
+    ],
+    "app\\modules\\arbitrage\\pairs_trading.py": [
+      "update_price_data",
+      "check_correlation",
+      "trade_pair"
+    ],
+    "app\\modules\\arbitrage\\statistical_arbitrage.py": [
+      "update_price_data",
+      "calculate_spread",
+      "execute_arbitrage_trade"
+    ],
+    "app\\modules\\derivatives\\options_trading_engine.py": [
+      "black_scholes"
+    ],
+    "app\\modules\\execution\\execution_latency_optimizer.py": [
+      "measure_latency",
+      "adjust_execution_speed"
+    ],
+    "app\\modules\\htf\\hft_trading.py": [
+      "predict_order_flow"
+    ],
+    "app\\modules\\liquidity\\spread_controller.py": [
+      "calculate_volatility",
+      "adjust_spread",
+      "update_trade_history"
+    ],
+    "app\\modules\\machine_learning\\anomaly_detection.py": [
+      "extract_features",
+      "update_data_history",
+      "train_model",
+      "detect_anomalies",
+      "analyze_market"
+    ],
+    "app\\modules\\machine_learning\\clustering.py": [
+      "fit",
+      "predict",
+      "cluster_centers",
+      "inertia"
+    ],
+    "app\\modules\\machine_learning\\predictive_model.py": [
+      "prepare_data",
+      "build_lstm_model",
+      "build_transformer_model"
+    ],
+    "app\\modules\\machine_learning\\reinforcement_learning.py": [
+      "_on_step",
+      "_create_env",
+      "_initialize_model",
+      "train",
+      "save_model"
+    ],
+    "app\\modules\\machine_learning\\training_pipeline.py": [
+      "load_data",
+      "fetch_new_data",
+      "preprocess_data",
+      "validate_model",
+      "save_results"
+    ],
+    "app\\modules\\machine_learning\\train_model.py": [
+      "_initialize_env",
+      "initialize_model",
+      "train_model",
+      "save_model"
+    ],
+    "app\\modules\\machine_learning\\utils.py": [
+      "preprocess",
+      "save_to_npy"
+    ],
+    "app\\modules\\market_analysis\\trade_flow_analyzer.py": [
+      "analyze_trade_flow",
+      "analyze_bid_ask_spread"
+    ],
+    "app\\modules\\market_making\\ai_market_maker.py": [
+      "compute_dynamic_spread"
+    ],
+    "app\\modules\\market_making\\market_maker.py": [
+      "compute_adaptive_spread"
+    ],
+    "app\\modules\\market_making\\smart_spread_optimizer.py": [
+      "calculate_optimal_spread"
+    ],
+    "app\\modules\\microstructure\\execution_optimizer.py": [
+      "calculate_vwap"
+    ],
+    "app\\modules\\microstructure\\market_microstructure.py": [
+      "analyze_order_book_imbalance"
+    ],
+    "app\\modules\\portfolio\\asset_allocation_engine.py": [
+      "calculate_momentum"
+    ],
+    "app\\modules\\portfolio\\portfolio_optimizer.py": [
+      "optimize_portfolio"
+    ],
+    "app\\modules\\portfolio\\quant_risk_engine.py": [
+      "calculate_var",
+      "calculate_cvar",
+      "monte_carlo_simulation"
+    ],
+    "app\\modules\\quantum\\quantum_portfolio_optimizer.py": [
+      "quantum_superposition_decision",
+      "quantum_monte_carlo_forecasting",
+      "execute_quantum_trade"
+    ],
+    "app\\modules\\quantum\\quantum_trading.py": [
+      "quantum_superposition_decision",
+      "quantum_monte_carlo_forecasting",
+      "execute_quantum_trade"
+    ],
+    "app\\modules\\risk\\execution_risk_analyzer.py": [
+      "calculate_vwap"
+    ],
+    "app\\modules\\security\\authentication.py": [
+      "verify_password",
+      "hash_password",
+      "decode_access_token",
+      "authenticate_user"
+    ],
+    "app\\modules\\security\\encryption_manager.py": [
+      "encrypt_data",
+      "decrypt_data"
+    ],
+    "app\\modules\\security\\rate_limiter.py": [
+      "protected_api",
+      "check_rate_limit"
+    ],
+    "app\\modules\\security\\websocket_security.py": [
+      "validate_token",
+      "encrypt_message",
+      "decrypt_message"
+    ],
+    "app\\modules\\trading\\live_trading.py": [
+      "stop",
+      "start"
+    ],
+    "app\\modules\\websocket\\data_handler.py": [
+      "validate_data",
+      "transform_data",
+      "get_latest_data"
+    ],
+    "app\\modules\\websocket\\websocket_client.py": [
+      "handle_data"
+    ],
+    "app\\modules\\websocket\\websocket_manager.py": [
+      "get_order_book",
+      "get_trade_data"
+    ],
+    "app\\security\\auth.py": [
+      "get_current_user"
+    ],
+    "app\\services\\arb_engine.py": [
+      "fetch_prices",
+      "find_arbitrage_opportunities"
+    ],
+    "app\\services\\external_service.py": [
+      "_generate_hmac_signature"
+    ],
+    "app\\services\\feedback.py": [
+      "learn_from"
+    ],
+    "app\\services\\indicator_engine.py": [
+      "compute_rsi",
+      "bollinger_bands"
+    ],
+    "app\\services\\macro.py": [
+      "summary"
+    ],
+    "app\\services\\memory.py": [
+      "log_interaction",
+      "store_decision",
+      "recall",
+      "summarize"
+    ],
+    "app\\services\\portfolio_tracker.py": [
+      "add_asset",
+      "get_portfolio_value"
+    ],
+    "app\\services\\profile.py": [
+      "update",
+      "current_profile"
+    ],
+    "app\\services\\self_healing_ai.py": [
+      "fetch_prometheus_metrics",
+      "deepseek_self_diagnose",
+      "evaluate_and_heal"
+    ],
+    "app\\services\\social_scanner.py": [
+      "fetch_twitter_sentiment",
+      "scan_reddit_threads",
+      "analyze_wallet_activity"
+    ],
+    "app\\services\\tx_executor.py": [
+      "build_tx",
+      "sign_and_send"
+    ],
+    "app\\services\\ai\\model.py": [
+      "predict"
+    ],
+    "app\\services\\risk\\risk_engine.py": [
+      "check_risk_limits"
+    ],
+    "app\\tasks\\alert_worker.py": [
+      "start",
+      "stop",
+      "enqueue_alert",
+      "_process_alerts"
+    ],
+    "app\\tasks\\data_processor.py": [
+      "start",
+      "stop",
+      "_collect_data",
+      "_process_data"
+    ],
+    "app\\tasks\\retraining_worker.py": [
+      "retrain_models",
+      "_determine_model_type"
+    ],
+    "app\\tasks\\task_scheduler.py": [
+      "schedule_tasks",
+      "run_scheduler"
+    ],
+    "app\\utils\\database.py": [
+      "connect",
+      "initialize_database",
+      "create_tables",
+      "close_connection",
+      "insert_trade",
+      "query_trades",
+      "update_trade",
+      "delete_trade",
+      "execute_query",
+      "fetch_all",
+      "close"
+    ],
+    "app\\utils\\data_processor.py": [
+      "process_volume_data"
+    ],
+    "app\\utils\\external_service.py": [
+      "call_mock_api"
+    ],
+    "app\\utils\\helpers.py": [
+      "calculate_percentage_change",
+      "format_datetime",
+      "is_valid_email",
+      "retry_on_exception",
+      "decorator",
+      "wrapper"
+    ],
+    "app\\utils\\logger.py": [
+      "log",
+      "info",
+      "warning",
+      "error",
+      "debug",
+      "log_trade",
+      "log_error",
+      "trace_execution_time",
+      "track_memory_usage",
+      "get_system_metrics",
+      "monitor_function",
+      "sample_function",
+      "wrapper",
+      "wrapper"
+    ],
+    "app\\utils\\metrics_monitor.py": [
+      "track_execution_time",
+      "track_memory_usage",
+      "get_system_metrics",
+      "monitor_resource_usage",
+      "log_system_metrics",
+      "monitor_function",
+      "wrapper",
+      "wrapper"
+    ],
+    "app\\utils\\monitoring_tools.py": [
+      "log",
+      "log_trade",
+      "log_error",
+      "log_performance",
+      "track_execution_time",
+      "track_memory_usage",
+      "get_system_metrics",
+      "monitor_function",
+      "sample_task",
+      "wrapper",
+      "wrapper"
+    ],
+    "app\\utils\\validators.py": [
+      "sanitize_input"
+    ],
+    "bruce_api\\main.py": [
+      "read_root"
+    ],
+    "cognitive_memory\\episodic_memory_handler.py": [
+      "load_memory",
+      "append_episode",
+      "summarize_memory",
+      "get_statistics"
+    ],
+    "deeptradex\\tia_agent.py": [
+      "load_template",
+      "build_prompt",
+      "execute",
+      "last_output",
+      "execute_and_store"
+    ],
+    "deeptradex\\tia_observer.py": [
+      "run_observer_loop"
+    ],
+    "fomohunter\\backtesting.py": [
+      "validate_historical_data",
+      "execute_trade_simulation",
+      "simulate_trades",
+      "load_historical_data",
+      "plot_simulation_results",
+      "main"
+    ],
+    "fomohunter\\config_loader.py": [
+      "load_config"
+    ],
+    "fomohunter\\openai.py": [
+      "load_config",
+      "call_openai_chat"
+    ],
+    "fomohunter\\test_workflow.py": [
+      "run_tests",
+      "setUp",
+      "test_token_detection",
+      "test_trade_execution",
+      "test_position_monitoring",
+      "test_error_handling"
+    ],
+    "fomohunter\\token_sniper.py": [
+      "detect_tokens_in_all_dex",
+      "execute_trades_for_tokens",
+      "monitor_positions",
+      "snipe_tokens"
+    ],
+    "fomohunter\\utils.py": [
+      "get_crypto_price",
+      "send_telegram_message",
+      "filter_top_tokens",
+      "notify_user",
+      "get_historical_market_data",
+      "check_dex_health"
+    ],
+    "gym_env\\market_env.py": [
+      "reset",
+      "step",
+      "_next_observation",
+      "render"
+    ],
+    "models\\Phi-3-mini-4k-instruct\\configuration_phi3.py": [
+      "_rope_scaling_adjustment",
+      "_rope_scaling_validation"
+    ],
+    "models\\Phi-3-mini-4k-instruct\\modeling_phi3.py": [
+      "_get_unpad_data",
+      "rotate_half",
+      "apply_rotary_pos_emb",
+      "repeat_kv",
+      "forward",
+      "forward",
+      "forward",
+      "forward",
+      "_init_rope",
+      "forward",
+      "forward",
+      "_flash_attention_forward",
+      "_upad_input",
+      "forward",
+      "forward",
+      "_init_weights",
+      "get_input_embeddings",
+      "set_input_embeddings",
+      "forward",
+      "get_input_embeddings",
+      "set_input_embeddings",
+      "get_output_embeddings",
+      "set_output_embeddings",
+      "set_decoder",
+      "get_decoder",
+      "forward",
+      "prepare_inputs_for_generation",
+      "_reorder_cache",
+      "get_input_embeddings",
+      "set_input_embeddings",
+      "forward",
+      "forward"
+    ],
+    "models\\Phi-3-mini-4k-instruct\\sample_finetune.py": [
+      "apply_chat_template"
+    ],
+    "modules\\arbitrage_omniverse.py": [
+      "detect_arbitrage",
+      "calculate_dimension_profit",
+      "cross_universe_execute"
+    ],
+    "modules\\autonomy_core.py": [
+      "decide",
+      "execute"
+    ],
+    "modules\\avatar_physicality.py": [
+      "materialize"
+    ],
+    "modules\\cognitive_sync.py": [
+      "broadcast_memory",
+      "receive_and_integrate"
+    ],
+    "modules\\darkpool_orchestrator.py": [
+      "create_new_market",
+      "_deploy_quantum_contract",
+      "_mint_mirror_tokens",
+      "_simulate_10k_years"
+    ],
+    "modules\\deepseek_editor.py": [
+      "example_transformation",
+      "create_snapshot",
+      "rollback_snapshot",
+      "analyze_and_edit",
+      "list_editable_files",
+      "superuser_permission_granted",
+      "visit_FunctionDef"
+    ],
+    "modules\\emotional_processor.py": [
+      "perceive",
+      "current_state",
+      "as_expression"
+    ],
+    "modules\\freight_trading_core.py": [
+      "forecast_disruption",
+      "execute_trade"
+    ],
+    "modules\\god_mode_terminal.py": [
+      "display_markets",
+      "voice_interface"
+    ],
+    "modules\\llm_bridge.py": [
+      "query"
+    ],
+    "modules\\market_universal_connector.py": [
+      "execute_order",
+      "_mirror_trade",
+      "_dark_pool_routing"
+    ],
+    "modules\\meta_bruce_planner.py": [
+      "define_objective",
+      "_plan_for",
+      "get_all_plans"
+    ],
+    "modules\\mirror_economy_gen.py": [
+      "simulate",
+      "_generate_assets",
+      "_generate_liquidity",
+      "_calculate_risk_index"
+    ],
+    "modules\\neuralink_bridge.py": [
+      "execute_thought",
+      "_decode_brain_waves",
+      "_inject_lucid_dream"
+    ],
+    "modules\\sniper_solana_ultra.py": [
+      "snipe_transaction",
+      "simulate_profit",
+      "execute_real"
+    ],
+    "modules\\strategic_autoscaler.py": [
+      "log_metric",
+      "recommend"
+    ],
+    "modules\\strategic_consciousness.py": [
+      "analyze_file",
+      "propose_improvement"
+    ],
+    "modules\\tactical_mind.py": [
+      "add_tactic",
+      "plan_sequence",
+      "evaluate_progress"
+    ],
+    "tests\\test_api.py": [
+      "test_chat"
+    ],
+    "tests\\test_health.py": [
+      "test_healthcheck"
+    ],
+    "tests\\test_lstm.py": [
+      "test_lstm_model_loaded"
+    ],
+    "tests\\test_ppo.py": [
+      "test_ppo_model_loaded"
+    ],
+    "workers\\alert_worker.py": [
+      "start",
+      "stop",
+      "enqueue_alert",
+      "_process_alerts"
+    ],
+    "workers\\data_processor.py": [
+      "start",
+      "stop",
+      "_collect_data",
+      "_process_data"
+    ],
+    "workers\\retraining_worker.py": [
+      "retrain_models",
+      "_determine_model_type"
+    ],
+    "workers\\task_scheduler.py": [
+      "schedule_tasks",
+      "run_scheduler"
+    ]
+  },
+  "total_disconnected": 625
+}

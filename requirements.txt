@@ -1,0 +1,73 @@
+# ============================================================
+# Bruce AI - Core Dependencies
+# ============================================================
+
+# --- Web Framework ---
+fastapi==0.103.2
+uvicorn[standard]==0.24.0.post1
+starlette==0.27.0
+python-multipart>=0.0.6
+pydantic==2.10.6
+pydantic-settings>=2.0.0
+
+# --- Authentication ---
+python-jose[cryptography]==3.4.0
+PyJWT==2.10.1
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+cryptography==43.0.3
+
+# --- Database ---
+sqlalchemy==2.0.39
+aiosqlite==0.21.0
+alembic>=1.13.0
+asyncpg>=0.29.0
+
+# --- Cache ---
+redis==4.6.0
+
+# --- HTTP Client ---
+requests==2.31.0
+httpx==0.28.1
+aiohttp==3.10.11
+
+# --- AI/ML Core ---
+transformers==4.50.0
+tokenizers==0.21.1
+huggingface-hub==0.29.3
+safetensors==0.5.3
+torch>=2.0.0
+
+# --- Data Science ---
+numpy==1.24.4
+pandas==1.5.3
+scikit-learn==1.6.1
+scipy==1.13.1
+
+# --- RL & Trading ---
+gymnasium==1.0.0
+ccxt==4.4.69
+
+# --- Blockchain ---
+web3==7.9.0
+
+# --- NLP & Text ---
+beautifulsoup4==4.13.3
+
+# --- Monitoring ---
+prometheus-client==0.21.1
+psutil==5.9.6
+loguru==0.7.2
+
+# --- Config ---
+python-dotenv==1.0.1
+PyYAML==6.0.1
+
+# --- Utilities ---
+tqdm==4.66.1
+tenacity==8.5.0
+regex==2024.11.6
+Pillow==11.1.0
+
+# --- Dev Dependencies (install with: pip install -r requirements-dev.txt) ---
+# pytest, black, flake8, mypy, isort

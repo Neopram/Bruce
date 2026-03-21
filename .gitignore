@@ -1,0 +1,76 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Node
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ML Models (large binaries)
+*.h5
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+models/*/
+!models/active_model.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Runtime
+logs/*.log
+logs/*.jsonl
+*.log
+output/videos/*
+temp/speech/*
+snapshots/*
+data/simulations/*.json
+
+# Docker
+docker-compose.override.yml
+
+# Infrastructure secrets
+infrastructure/keys/
+
+# Claude
+.claude/

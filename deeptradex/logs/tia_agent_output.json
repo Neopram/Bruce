@@ -1,0 +1,30 @@
+import os
+from datetime import datetime
+
+LOG_FILE = os.path.abspath("deeptradex/logs/tia_agent_output.json")
+
+def log_tia_execution(command: str, context: dict, output: str):
+    log_entry = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "command": command,
+        "context": context,
+        "output": output
+    }
+
+    # Crear carpeta si no existe
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+
+    try:
+        # Cargar historial existente
+        if os.path.exists(LOG_FILE):
+            with open(LOG_FILE, "r") as f:
+                history = json.load(f)
+        else:
+            history = []
+
+        history.append(log_entry)
+
+        with open(LOG_FILE, "w") as f:
+            json.dump(history, f, indent=2)
+    except Exception as e:
+        logging.warning(f"❗ Error logging TIA output: {e}")

@@ -1,0 +1,10 @@
+
+{
+  "name": "OKK Gorilla Bot",
+  "short_name": "OKKBot",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "description": "AI Trading Dashboard",
+  "icons": []
+}

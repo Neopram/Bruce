@@ -1,0 +1,10 @@
+{
+  "symbol": "BTC/USDT",
+  "method": "Q-Learning (fallback)",
+  "episodes": 500,
+  "duration_s": 0.6,
+  "mean_reward": 4.6823,
+  "max_reward": 48.1597,
+  "min_reward": -36.265,
+  "trained_at": "2026-03-21T09:33:04.434318"
+}

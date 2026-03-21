@@ -1,0 +1,7 @@
+Contexto del usuario:
+{context}
+
+Situación:
+{prompt}
+
+Respuesta de Bruce:

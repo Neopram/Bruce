@@ -1,0 +1,66 @@
+{
+  "symbol": "BTC_USDT",
+  "test_data_points": 73,
+  "evaluated_at": "2026-03-21T09:34:55.667635",
+  "duration_s": 0.0,
+  "results": [
+    {
+      "strategy": "Buy & Hold",
+      "total_return": 1.4,
+      "sharpe_ratio": 0.323,
+      "max_drawdown": 15.6,
+      "win_rate": 51.4,
+      "n_trades": 1,
+      "avg_trade_return": 1.4
+    },
+    {
+      "strategy": "SMA(10/30)",
+      "total_return": -12.04,
+      "sharpe_ratio": -2.0284,
+      "max_drawdown": 13.44,
+      "win_rate": 25.0,
+      "n_trades": 4,
+      "avg_trade_return": -3.12
+    },
+    {
+      "strategy": "SMA(20/50)",
+      "total_return": 2.65,
+      "sharpe_ratio": 0.9316,
+      "max_drawdown": 9.5,
+      "win_rate": 100.0,
+      "n_trades": 1,
+      "avg_trade_return": 2.65
+    },
+    {
+      "strategy": "RSI(14)",
+      "total_return": 0.0,
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "n_trades": 0,
+      "avg_trade_return": 0
+    },
+    {
+      "strategy": "Q-Learning",
+      "total_return": 0,
+      "sharpe_ratio": 0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "n_trades": 0,
+      "avg_trade_return": 0,
+      "note": "Q-learning model found but backtest not implemented for tabular model"
+    },
+    {
+      "strategy": "Linear Regression Predictor",
+      "total_return": 0.0,
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0,
+      "win_rate": 0,
+      "n_trades": 0,
+      "avg_trade_return": 0,
+      "directional_accuracy": 25.0
+    }
+  ],
+  "best_sharpe": "SMA(20/50)",
+  "best_return": "SMA(20/50)"
+}

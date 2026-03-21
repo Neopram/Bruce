@@ -1,0 +1,57 @@
+services:
+  backend:
+    build: ./backend
+    container_name: bruce_backend
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - ./backend/models:/app/models
+      - ./backend/data:/app/data
+      - ./backend/logs:/app/logs
+      - ./backend/uploads:/app/uploads
+      - ./backend/vector_db:/app/vector_db
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+    depends_on:
+      - redis
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/state"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build: ./frontend
+    container_name: bruce_frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env.local
+    volumes:
+      - ./frontend:/app
+    command: npm run dev
+    depends_on:
+      - backend
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: bruce_redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  faiss:
+    container_name: bruce_faiss
+    image: alpine  # Imagen dummy para montar volumen de vectores
+    volumes:
+      - ./backend/vector_db:/data
+    command: tail -f /dev/null
+    restart: unless-stopped
+
+networks:
+  default:
+    name: bruce_net

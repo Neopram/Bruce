@@ -1,0 +1,9 @@
+aws_region      = "us-west-2"
+aws_profile     = "trading-bot-profile"
+instance_type   = "t3.medium"
+key_pair_name   = "my-key-pair"
+docker_image    = "myrepo/trading-bot:v1.0.0"
+allowed_ip      = "192.168.1.0/24"
+desired_capacity = 2
+max_capacity     = 5
+min_capacity     = 1

@@ -1,0 +1,27 @@
+# Archivos y carpetas innecesarias
+node_modules
+npm-debug.log
+yarn-error.log
+.next
+.env
+.env.local
+.env.development
+*.zip
+*.log
+*.tgz
+
+# IDE / configuración local
+.vscode/
+.idea/
+.DS_Store
+
+# Git
+.git/
+.gitignore
+
+# Archivos de pruebas o documentación
+tests/
+storybook/
+__snapshots__/
+coverage/
+docs/

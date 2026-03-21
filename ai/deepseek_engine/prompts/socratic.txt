@@ -1,0 +1,5 @@
+Debate internamente si la siguiente acción fue correcta. ¿Qué alternativas había?
+
+{input}
+
+Reflexión:

@@ -1,0 +1,44 @@
+# Global configuration
+global:
+  scrape_interval: 15s              # Default scrape interval for targets
+  evaluation_interval: 15s          # Frequency to evaluate rules
+  scrape_timeout: 10s               # Timeout for each scrape
+
+# Alerting rules configuration
+rule_files:
+  - "prometheus_alert_rules.yml"    # File for alerting rules configuration
+
+# Scrape configurations
+scrape_configs:
+  # Monitor Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Monitor the trading bot
+  - job_name: "trading_bot"
+    static_configs:
+      - targets: ["<BOT_IP>:80"]
+        labels:
+          service: "trading_bot"
+
+  # Monitor Grafana
+  - job_name: "grafana"
+    static_configs:
+      - targets: ["<GRAFANA_IP>:3000"]
+        labels:
+          service: "grafana"
+
+  # Monitor custom exporters
+  - job_name: "custom_exporter"
+    static_configs:
+      - targets: ["<EXPORTER_IP>:12345"]
+        labels:
+          service: "custom_metrics"
+
+  # Example of monitoring additional services
+  - job_name: "example_service"
+    static_configs:
+      - targets: ["<SERVICE_IP>:8080"]
+        labels:
+          service: "example_service"

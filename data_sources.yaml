@@ -1,0 +1,6 @@
+# Fuentes de datos para scraping e ingesta
+sources:
+  - name: WorldBank
+    url: https://api.worldbank.org
+  - name: FRED
+    url: https://fred.stlouisfed.org

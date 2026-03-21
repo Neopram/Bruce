@@ -1,0 +1,8 @@
+{
+    "mode": "balanced",
+    "tone": "neutral",
+    "style": "precise",
+    "bias": "none",
+    "creativity": 0.5,
+    "emotion": "stable"
+}

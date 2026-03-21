@@ -1,0 +1,16 @@
+Write-Host "Iniciando Bruce VANTABLACK Omega X..." -ForegroundColor Cyan
+
+$dockerStatus = docker info 2>$null
+if (!$dockerStatus) {
+    Write-Host "Docker no esta corriendo. Por favor inicia Docker Desktop." -ForegroundColor Red
+    exit 1
+}
+
+Set-Location "C:\Users\feder\Downloads\BruceWayneV1"
+
+docker compose up --build
+
+Write-Host ""
+Write-Host "Bruce esta desplegado. Interfaces disponibles:"
+Write-Host "Frontend: http://localhost:3000" -ForegroundColor Green
+Write-Host "Backend: http://localhost:8001/docs" -ForegroundColor Green
