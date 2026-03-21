@@ -1,40 +1,78 @@
-# Etapa 1: Construcción de la app
-FROM node:20-alpine AS builder
+###############################################################################
+# Bruce AI Backend - Production Dockerfile
+# Multi-stage build for Python 3.12 FastAPI application
+###############################################################################
 
-# Establecer el directorio de trabajo
+# ── Stage 1: Builder ─────────────────────────────────────────────────────
+FROM python:3.12-slim AS builder
+
+WORKDIR /build
+
+# Install build dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        libpq-dev \
+        curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+
+# ── Stage 2: Runtime ─────────────────────────────────────────────────────
+FROM python:3.12-slim AS runtime
+
+# Install runtime system dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        libpq5 \
+        curl \
+        tini \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user
+RUN groupadd -r bruce && useradd -r -g bruce -d /app -s /sbin/nologin bruce
+
 WORKDIR /app
 
-# Copiar package.json y lock para caché de dependencias
-COPY package.json package-lock.json* pnpm-lock.yaml* yarn.lock* ./
+# Copy installed Python packages from builder
+COPY --from=builder /install /usr/local
 
-# Instalar dependencias (usa pnpm, yarn o npm según corresponda)
-RUN npm install
+# Copy application source
+COPY main.py .
+COPY config/ ./config/
+COPY auth.py ./
+COPY app/ ./app/
+COPY ai/ ./ai/
+COPY ai_core/ ./ai_core/
+COPY modules/ ./modules/
+COPY data/ ./data/
 
-# Copiar todo el proyecto
-COPY . .
+# Copy top-level Python modules
+COPY bruce_agent.py ./
+COPY orchestrator.py ./
 
-# Construir la app de producción
-RUN npm run build
+# Create directories for runtime data
+RUN mkdir -p /app/data /app/logs /app/uploads /app/models /app/vector_db \
+    && chown -R bruce:bruce /app
 
----
+# Switch to non-root user
+USER bruce
 
-# Etapa 2: Servidor para producción (Next.js optimizado)
-FROM node:20-alpine AS runner
+# Expose API port
+EXPOSE 8000
 
-WORKDIR /app
+# Use tini as init system for proper signal handling
+ENTRYPOINT ["tini", "--"]
 
-# Importar solo los archivos necesarios del builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next.config.js ./next.config.js
-COPY --from=builder /app/tailwind.config.js ./tailwind.config.js
-COPY --from=builder /app/postcss.config.js ./postcss.config.js
-COPY --from=builder /app/tsconfig.json ./tsconfig.json
-
-# Exponer el puerto estándar
-EXPOSE 3000
-
-# Arrancar el servidor optimizado de Next.js
-CMD ["npm", "start"]
+# Run uvicorn with production settings
+CMD ["uvicorn", "main:app", \
+     "--host", "0.0.0.0", \
+     "--port", "8000", \
+     "--workers", "4", \
+     "--loop", "uvloop", \
+     "--http", "httptools", \
+     "--access-log", \
+     "--proxy-headers", \
+     "--forwarded-allow-ips", "*"]

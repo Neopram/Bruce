@@ -1,27 +1,66 @@
-# Archivos y carpetas innecesarias
-node_modules
-npm-debug.log
-yarn-error.log
-.next
-.env
-.env.local
-.env.development
-*.zip
-*.log
-*.tgz
-
-# IDE / configuración local
-.vscode/
-.idea/
-.DS_Store
-
-# Git
+# Version control
 .git/
 .gitignore
 
-# Archivos de pruebas o documentación
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Build outputs
+.next/
+frontend/.next/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Docker files (not needed inside containers)
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# Logs and temp files
+*.log
+logs/
+*.zip
+*.tgz
+*.tar.gz
+
+# Test and docs
 tests/
-storybook/
-__snapshots__/
+test/
 coverage/
 docs/
+storybook/
+__snapshots__/
+*.md
+
+# Data files (mounted as volumes)
+data/vector_memory/
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+nginx/certs/

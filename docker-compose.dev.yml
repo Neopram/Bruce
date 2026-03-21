@@ -1,0 +1,78 @@
+###############################################################################
+# Bruce AI - Development Override
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+###############################################################################
+
+services:
+  bruce-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    environment:
+      ENVIRONMENT: development
+      DEBUG: "true"
+      LOG_LEVEL: debug
+    volumes:
+      # Mount source code for hot-reload
+      - ./main.py:/app/main.py
+      - ./config:/app/config
+      - ./auth.py:/app/auth.py
+      - ./app:/app/app
+      - ./ai:/app/ai
+      - ./ai_core:/app/ai_core
+      - ./modules:/app/modules
+      - ./tools:/app/tools
+      - ./memory:/app/memory
+      - ./data:/app/data
+      - ./logs:/app/logs
+    command: >
+      uvicorn main:app
+      --host 0.0.0.0
+      --port 8000
+      --reload
+      --reload-dir /app
+      --log-level debug
+    # Disable health check dependency for faster dev startup
+    depends_on:
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+    healthcheck:
+      disable: true
+
+  bruce-frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../Dockerfile.frontend
+      target: deps
+    volumes:
+      # Mount source for Next.js hot-reload
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+      NEXT_PUBLIC_WS_URL: ws://localhost:8000/ws
+    healthcheck:
+      disable: true
+    depends_on:
+      bruce-backend:
+        condition: service_started
+
+  telegram-bot:
+    volumes:
+      - ./modules:/app/modules
+    environment:
+      ENVIRONMENT: development
+      DEBUG: "true"
+
+  ollama:
+    # No GPU reservation in dev (use CPU)
+    deploy: {}
+
+  nginx:
+    # In dev, access services directly on their ports
+    profiles:
+      - production
