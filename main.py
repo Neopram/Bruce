@@ -9,6 +9,7 @@ from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from pydantic import BaseModel
 from config.settings import get_settings
 
 # Ensure app/ modules are importable
@@ -92,14 +93,82 @@ except ImportError:
     logger.warning("Frontend API router not available")
 
 
+# === Bruce Autonomous Agent ===
+try:
+    from bruce_agent import get_bruce
+
+    class ChatRequest(BaseModel):
+        message: str
+        user_id: str = "federico"
+
+    class LearnRequest(BaseModel):
+        topic: str
+        content: str
+        source: str = "manual"
+
+    class AgentRequest(BaseModel):
+        description: str
+
+    class DeployRequest(BaseModel):
+        agent_id: str
+        task: str
+
+    @app.post("/bruce/chat", tags=["Bruce Agent"])
+    async def bruce_chat(req: ChatRequest):
+        bruce = get_bruce()
+        response = bruce.chat(req.message, req.user_id)
+        return {"response": response, "llm": bruce._llm_name}
+
+    @app.post("/bruce/learn", tags=["Bruce Agent"])
+    async def bruce_learn(req: LearnRequest):
+        bruce = get_bruce()
+        return bruce.learn(req.topic, req.content, req.source)
+
+    @app.post("/bruce/create-agent", tags=["Bruce Agent"])
+    async def bruce_create_agent(req: AgentRequest):
+        bruce = get_bruce()
+        return bruce.create_agent_for(req.description)
+
+    @app.post("/bruce/deploy-agent", tags=["Bruce Agent"])
+    async def bruce_deploy_agent(req: DeployRequest):
+        bruce = get_bruce()
+        return bruce.deploy_agent(req.agent_id, req.task)
+
+    @app.post("/bruce/swarm", tags=["Bruce Agent"])
+    async def bruce_swarm(req: ChatRequest):
+        bruce = get_bruce()
+        return bruce.swarm_analyze(req.message)
+
+    @app.get("/bruce/status", tags=["Bruce Agent"])
+    async def bruce_status():
+        bruce = get_bruce()
+        return bruce.status()
+
+    @app.get("/bruce/reflect", tags=["Bruce Agent"])
+    async def bruce_reflect():
+        bruce = get_bruce()
+        return {"reflection": bruce.reflect()}
+
+    @app.get("/bruce/agents", tags=["Bruce Agent"])
+    async def bruce_agents():
+        bruce = get_bruce()
+        return {"agents": bruce.factory.list_agents()}
+
+    logger.info("Bruce Autonomous Agent endpoints loaded")
+except ImportError as e:
+    logger.warning(f"Bruce Agent not available: {e}")
+
+
 # === Root Endpoint ===
 @app.get("/")
 async def root():
     return {
-        "message": "Bruce AI - Nucleo Cognitivo Activo",
+        "message": "Bruce AI - Agente Autonomo Liberado",
         "status": "operational",
-        "version": "3.2.0",
+        "version": "3.3.0",
+        "creator": "Federico",
         "docs": "/docs",
+        "bruce": "/bruce/status",
     }
 
 
@@ -160,13 +229,18 @@ async def websocket_chat(websocket: WebSocket, user_id: str):
         while True:
             data = await websocket.receive_json()
             message = data.get("message", "")
-            # Process through orchestrator
+            # Process through Bruce Agent (or orchestrator fallback)
             try:
-                from orchestrator import cognitive_infer
-                result = cognitive_infer(message, task="chat", user_id=user_id)
-                response = result.get("response", "No response available")
+                from bruce_agent import get_bruce
+                bruce = get_bruce()
+                response = bruce.chat(message, user_id)
             except Exception:
-                response = f"Received: {message}"
+                try:
+                    from orchestrator import cognitive_infer
+                    result = cognitive_infer(message, task="chat", user_id=user_id)
+                    response = result.get("response", "No response available")
+                except Exception:
+                    response = f"Received: {message}"
 
             await ws_manager.send(user_id, {
                 "type": "message",
