@@ -21,7 +21,7 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
 # Configura tu clave de API de OpenAI
-openai.api_key = "REMOVED_API_KEY"
+openai.api_key = os.getenv("OPENAI_API_KEY", "")
 
 ALLOWED_DECISIONS = {"buy", "sell", "hold"}  # Decisiones válidas
 
