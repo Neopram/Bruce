@@ -18,6 +18,21 @@ logger = logging.getLogger("Bruce.Orchestrator")
 # ---------------------------------------------------------------------------
 
 
+def _try_import_ollama():
+    try:
+        from ollama_client import get_ollama
+        client = get_ollama()
+        if client.is_available():
+            logger.info("Ollama connected: %s", client.model)
+            return client
+        else:
+            logger.info("Ollama not running, falling back to local models")
+            return None
+    except Exception as e:
+        logger.debug("Ollama unavailable: %s", e)
+        return None
+
+
 def _try_import_router():
     try:
         from model_router import ModelRouter
@@ -67,11 +82,21 @@ def _try_import_device_info():
 # Singleton instances (created on first use)
 # ---------------------------------------------------------------------------
 
+_ollama = None
+_ollama_checked = False
 _router = None
 _memory = None
 _personality = None
 _vector_logger = None
 _device_fn = None
+
+
+def _get_ollama():
+    global _ollama, _ollama_checked
+    if not _ollama_checked:
+        _ollama = _try_import_ollama()
+        _ollama_checked = True
+    return _ollama
 
 
 def _get_router():
@@ -252,23 +277,53 @@ def cognitive_infer(
     # 1. Build enriched prompt
     enriched_prompt = _build_context(prompt, task, user_id)
 
-    # 2. Route inference
-    router = _get_router()
-    if router is not None:
-        device_info = _get_device_info()
-        result = router.route(
-            enriched_prompt,
-            task=task,
-            device_info=device_info,
-            max_tokens=max_tokens,
-            temperature=temperature,
-        )
-        response = result["response"]
-        model_used = result["model"]
-    else:
-        # Ultimate fallback -- no router available at all
-        response = f"[Orchestrator-fallback] Router unavailable. Prompt: {prompt[:200]}"
-        model_used = "none"
+    # 2. Route inference — try Ollama first, then local models
+    response = None
+    model_used = "none"
+
+    # 2a. Try Ollama (Mistral 7B or other local LLM via Ollama)
+    ollama = _get_ollama()
+    if ollama is not None:
+        try:
+            system_prompt = (
+                "You are Bruce AI, an expert financial and shipping intelligence assistant. "
+                "You provide precise, data-driven analysis on trading, markets, crypto, "
+                "shipping logistics, and portfolio management. "
+                "Be concise but thorough. Use numbers and data when possible."
+            )
+            response = ollama.chat(
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": enriched_prompt},
+                ],
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+            if response and not response.startswith("[Ollama"):
+                model_used = f"ollama/{ollama.model}"
+            else:
+                response = None  # Fallback to router
+        except Exception as e:
+            logger.warning("Ollama inference failed: %s", e)
+            response = None
+
+    # 2b. Fallback to local transformer models via router
+    if response is None:
+        router = _get_router()
+        if router is not None:
+            device_info = _get_device_info()
+            result = router.route(
+                enriched_prompt,
+                task=task,
+                device_info=device_info,
+                max_tokens=max_tokens,
+                temperature=temperature,
+            )
+            response = result["response"]
+            model_used = result["model"]
+        else:
+            response = f"[No LLM available] Please install Ollama (ollama.com) and run: ollama pull mistral"
+            model_used = "none"
 
     elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
 

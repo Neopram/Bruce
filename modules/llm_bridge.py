@@ -29,7 +29,7 @@ class LLMBridge:
         },
         "local": {
             "default_endpoint": "http://localhost:11434/api/generate",
-            "model": "llama3",
+            "model": "mistral",
             "format": "ollama",
         },
     }
