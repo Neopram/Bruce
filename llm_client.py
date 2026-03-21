@@ -40,8 +40,8 @@ class UnifiedLLMClient:
             if r.status_code == 200:
                 models = [m["name"] for m in r.json().get("models", [])]
                 if models:
-                    # Prefer mistral, then any model
-                    for preferred in ["mistral", "qwen", "deepseek", "llama"]:
+                    # Prefer best reasoning models first
+                    for preferred in ["qwen2.5", "deepseek-r1", "qwen", "mistral", "deepseek", "llama", "gemma", "phi"]:
                         match = next((m for m in models if preferred in m), None)
                         if match:
                             self.provider = "ollama"
