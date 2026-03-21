@@ -511,6 +511,17 @@
       "anomalies": 5,
       "error_count": 6,
       "timestamp": "2026-03-21T13:59:07.961148+00:00"
+    },
+    {
+      "status": "healthy",
+      "uptime_since": "2026-03-21T13:27:57.825753+00:00",
+      "total_requests": 231,
+      "success_rate": 97.4,
+      "avg_response_ms": 100.0,
+      "p95_response_ms": 100,
+      "anomalies": 5,
+      "error_count": 6,
+      "timestamp": "2026-03-21T16:14:23.842008+00:00"
     }
   ]
 }
