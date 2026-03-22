@@ -21,6 +21,12 @@ from tools import get_tools, ToolRegistry
 from react_agent import ReActAgent
 from vector_memory import get_vector_memory, VectorMemory
 
+try:
+    from modules.human_core import get_human_core, HumanCore
+    _HUMAN_CORE_AVAILABLE = True
+except ImportError:
+    _HUMAN_CORE_AVAILABLE = False
+
 logger = logging.getLogger("Bruce.Agent")
 
 
@@ -54,9 +60,13 @@ class BruceAgent:
         self.pending_tasks: List[Dict] = []
         self.completed_tasks: List[Dict] = []
 
+        # Human-core (emotion, empathy, adaptation, translation, personality)
+        self.human_core: Optional["HumanCore"] = None
+
         # Initialize
         self._connect_llm()
         self.react = ReActAgent(llm_fn=self._llm_fn, tools=self.tools)
+        self._init_human_core()
         self._spawn_default_agents()
         self._setup_default_watchers()
 
@@ -94,6 +104,18 @@ class BruceAgent:
         self._llm_fn = None
         logger.warning("No brain available. Run: python scripts/install_brain.py")
 
+    def _init_human_core(self):
+        """Initialize the human-core subsystems (emotion, empathy, adaptation, etc.)."""
+        if not _HUMAN_CORE_AVAILABLE:
+            logger.debug("human_core module not available -- running without it.")
+            return
+        try:
+            self.human_core = get_human_core(llm_fn=self._llm_fn)
+            logger.info("HumanCore initialized -- emotion, empathy, adaptation online.")
+        except Exception as exc:
+            logger.warning("Failed to initialize HumanCore: %s", exc)
+            self.human_core = None
+
     def _spawn_default_agents(self):
         """Spawn Bruce's default team of micro-agents."""
         try:
@@ -125,16 +147,35 @@ class BruceAgent:
             "timestamp": datetime.now(timezone.utc).isoformat(),
         })
 
+        # 1b. HUMAN-CORE — detect emotion, sentiment, adaptation, language
+        human_input = None
+        if self.human_core:
+            try:
+                human_input = self.human_core.process_input(message, user_id)
+                emo = human_input["emotion"]
+                logger.info(
+                    "Emotion: %s (%.2f) | Sentiment: %s | Language: %s",
+                    emo["emotion"], emo["intensity"],
+                    human_input["sentiment"]["label"],
+                    human_input["language"],
+                )
+            except Exception as exc:
+                logger.warning("HumanCore process_input failed: %s", exc)
+
         # 2. THINK — build context and decide how to respond
         context = self._build_context(message)
 
         # 3. ACT — generate response
         if self._llm_fn:
-            # Build full prompt with context
-            full_prompt = self._build_prompt(message, context)
+            # Build full prompt with context + human-core insights
+            full_prompt = self._build_prompt(message, context, human_input=human_input)
             response = self._llm_fn(full_prompt)
         else:
             response = self._think_without_llm(message, context)
+
+        # 3b. Apply empathy prefix if appropriate
+        if human_input and human_input.get("empathy_prefix"):
+            response = human_input["empathy_prefix"] + response
 
         # 4. REFLECT — learn from this interaction
         self.learning.learn_from_interaction(message, response)
@@ -143,6 +184,13 @@ class BruceAgent:
             "content": response,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         })
+
+        # 4b. Post-response human-core updates (memory, personality)
+        if self.human_core:
+            try:
+                self.human_core.post_response(message, response, user_id)
+            except Exception as exc:
+                logger.debug("HumanCore post_response failed: %s", exc)
 
         # Check if Bruce should take autonomous actions
         self._check_autonomous_actions(message, response)
@@ -194,9 +242,18 @@ class BruceAgent:
 
         return context
 
-    def _build_prompt(self, message: str, context: dict) -> str:
+    def _build_prompt(self, message: str, context: dict, human_input: dict = None) -> str:
         """Build the full prompt with all context for the LLM."""
         parts = []
+
+        # Human-core context (emotion, sentiment, adaptation, personality)
+        if human_input and self.human_core:
+            try:
+                hc_context = self.human_core.build_prompt_context(human_input, user_id="federico")
+                if hc_context:
+                    parts.append(hc_context)
+            except Exception as exc:
+                logger.debug("HumanCore build_prompt_context failed: %s", exc)
 
         # User context
         if "user" in context:

@@ -1,0 +1,10 @@
+{
+  "default": [
+    {
+      "emotion": "surprise",
+      "intensity": 0.25,
+      "confidence": 0.492,
+      "timestamp": "2026-03-22T05:50:50.245055+00:00"
+    }
+  ]
+}
