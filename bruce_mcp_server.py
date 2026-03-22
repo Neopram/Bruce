@@ -1031,6 +1031,125 @@ def schedule_task(name: str, interval_seconds: int, description: str = "") -> di
 
 
 # ============================================================
+#  INTERNET BRAIN TOOLS
+# ============================================================
+
+@mcp.tool()
+def deep_research(topic: str, max_pages: int = 5) -> dict:
+    """Deep research on any topic via the web.
+    Searches DuckDuckGo, reads top results, extracts key info, and stores
+    everything in Bruce's knowledge base for future reference.
+    Returns summary, sources, and chunks stored.
+    """
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        return brain.research(topic, max_pages=max_pages)
+    except Exception as e:
+        logger.error(f"deep_research error: {e}")
+        return {"error": str(e), "topic": topic}
+
+
+@mcp.tool()
+def learn_from_web(url_or_topic: str, depth: int = 1) -> dict:
+    """Crawl a URL or search a topic and ingest everything into Bruce's brain.
+    If url_or_topic starts with http, crawls that URL (and follows links if depth>0).
+    Otherwise, searches the web for it and crawls top results.
+    Respects robots.txt and rate limits.
+    """
+    try:
+        from modules.web_crawler import get_crawler
+        crawler = get_crawler()
+        if url_or_topic.startswith("http://") or url_or_topic.startswith("https://"):
+            return crawler.crawl_and_learn(url_or_topic, depth=depth)
+        else:
+            return crawler.learn_from_search(url_or_topic, max_pages=5)
+    except Exception as e:
+        logger.error(f"learn_from_web error: {e}")
+        return {"error": str(e), "input": url_or_topic}
+
+
+@mcp.tool()
+def learn_from_wikipedia(topic: str) -> dict:
+    """Deep-learn a topic from Wikipedia.
+    Fetches the main article and follows linked Wikipedia articles (1 level)
+    to build comprehensive knowledge on the subject.
+    Great for learning new domains quickly.
+    """
+    try:
+        from modules.web_crawler import get_crawler
+        crawler = get_crawler()
+        return crawler.learn_from_wikipedia(topic)
+    except Exception as e:
+        logger.error(f"learn_from_wikipedia error: {e}")
+        return {"error": str(e), "topic": topic}
+
+
+@mcp.tool()
+def morning_brief() -> dict:
+    """Generate Bruce's morning intelligence brief.
+    Covers: overnight crypto prices, market sentiment (Fear & Greed),
+    top news headlines across crypto/market/shipping, and recent alerts.
+    """
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        brief_text = brain.morning_brief()
+        return {"status": "ok", "brief": brief_text}
+    except Exception as e:
+        logger.error(f"morning_brief error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def market_alert_check() -> dict:
+    """Check for current significant market events and alerts.
+    Returns any price alerts (>3% moves), on-chain alerts (high fees),
+    and macro alerts (extreme fear/greed) from Bruce's monitoring.
+    """
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        alerts = brain.auto_feed.get_recent_alerts(20)
+        feed_stats = brain.auto_feed.get_feed_stats()
+        return {
+            "alerts": alerts,
+            "alert_count": len(alerts),
+            "feed_stats": feed_stats,
+            "connection": brain.connection.get_status(),
+        }
+    except Exception as e:
+        logger.error(f"market_alert_check error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def internet_brain_status() -> dict:
+    """Get the status of Bruce's Internet Brain.
+    Shows: connection state, feed stats, monitored topics, tracked entities.
+    """
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        return brain.get_status()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def competitive_intel(company: str) -> dict:
+    """Gather competitive intelligence on a company.
+    Searches recent news, checks SEC filings, and checks stock price.
+    """
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        return brain.competitive_intel(company)
+    except Exception as e:
+        return {"error": str(e), "company": company}
+
+
+# ============================================================
 #  PLUGIN TOOLS
 # ============================================================
 
@@ -1170,5 +1289,5 @@ def load_plugin_tools() -> dict:
 if __name__ == "__main__":
     logger.info("Starting Bruce AI MCP Server...")
     logger.info(f"Project root: {PROJECT_ROOT}")
-    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro, defi, onchain, yahoo_finance")
+    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro, defi, onchain, yahoo_finance, internet_brain, web_crawler")
     mcp.run(transport="stdio")

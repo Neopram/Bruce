@@ -433,6 +433,63 @@ def _self_reflect() -> Dict[str, Any]:
         return {"status": "error", "error": str(e)}
 
 
+def _morning_brief() -> Dict[str, Any]:
+    """Generate morning intelligence brief via InternetBrain."""
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        brief = brain.morning_brief()
+        return {
+            "status": "ok",
+            "brief_length": len(brief),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
+def _weekly_report() -> Dict[str, Any]:
+    """Generate weekly report via InternetBrain."""
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        report = brain.weekly_report()
+        return {
+            "status": "ok",
+            "report_length": len(report),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
+def _internet_brain_feed_check() -> Dict[str, Any]:
+    """Check InternetBrain feed status and ensure feeds are running."""
+    try:
+        from modules.internet_brain import get_internet_brain
+        brain = get_internet_brain()
+        status = brain.get_status()
+
+        # If connected but feeds not running, this is informational
+        connected = status.get("connection", {}).get("connected", False)
+        feed_running = status.get("feed", {}).get("is_running", False)
+
+        result = {
+            "status": "ok",
+            "connected": connected,
+            "feed_running": feed_running,
+            "urls_ingested": status.get("feed", {}).get("urls_ingested", 0),
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        }
+
+        if connected and not feed_running:
+            result["alert"] = "Internet connected but AutoFeed is not running. Consider restarting feeds."
+
+        return result
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
 def _health_check() -> Dict[str, Any]:
     """System health check - verify critical services."""
     health = {
@@ -501,10 +558,13 @@ def create_default_scheduler() -> BruceScheduler:
     """Create a BruceScheduler pre-loaded with default autonomous tasks."""
     scheduler = BruceScheduler()
 
-    scheduler.schedule_recurring("health_check", 60, _health_check)          # every 1 min
-    scheduler.schedule_recurring("market_check", 300, _market_check)         # every 5 min
-    scheduler.schedule_recurring("news_digest", 3600, _news_digest)          # every 1 hour
-    scheduler.schedule_recurring("self_reflect", 21600, _self_reflect)       # every 6 hours
+    scheduler.schedule_recurring("health_check", 60, _health_check)                   # every 1 min
+    scheduler.schedule_recurring("market_check", 300, _market_check)                  # every 5 min
+    scheduler.schedule_recurring("news_digest", 3600, _news_digest)                   # every 1 hour
+    scheduler.schedule_recurring("self_reflect", 21600, _self_reflect)                # every 6 hours
+    scheduler.schedule_recurring("internet_brain_check", 600, _internet_brain_feed_check)  # every 10 min
+    scheduler.schedule_recurring("morning_brief", 86400, _morning_brief)              # every 24 hours (6am via external trigger preferred)
+    scheduler.schedule_recurring("weekly_report", 604800, _weekly_report)             # every 7 days (Sunday via external trigger preferred)
 
     return scheduler
 

@@ -282,6 +282,35 @@ class ToolRegistry:
             {},
         )
 
+        # === Internet Brain: Research & Learning ===
+        self.register(
+            "research_topic",
+            self._tool_research_topic,
+            "Deep web research on any topic. Searches the web, reads top results, and stores findings in knowledge base.",
+            {"topic": "Topic to research", "max_pages": "Max pages to read (default 5)"},
+        )
+
+        self.register(
+            "monitor_topic",
+            self._tool_monitor_topic,
+            "Set up continuous monitoring for a topic. Bruce will periodically search for new info and alert on changes.",
+            {"topic": "Topic to monitor", "interval": "Check interval in minutes (default 60)"},
+        )
+
+        self.register(
+            "learn_from_url",
+            self._tool_learn_from_url,
+            "Crawl a URL, extract text, and learn from it. Optionally follows links on the page.",
+            {"url": "URL to crawl and learn from", "depth": "Link-follow depth: 0=just page, 1=follow links (default 1)"},
+        )
+
+        self.register(
+            "generate_brief",
+            self._tool_generate_brief,
+            "Generate a morning intelligence brief with crypto prices, market sentiment, news, and alerts.",
+            {},
+        )
+
         # === System ===
         self.register(
             "shell",
@@ -569,6 +598,67 @@ class ToolRegistry:
             return json.dumps(result, indent=2)
         except Exception as e:
             return json.dumps({"error": str(e)})
+
+    def _tool_research_topic(self, topic: str, max_pages: int = 5) -> str:
+        """Deep web research on a topic."""
+        try:
+            from modules.internet_brain import get_internet_brain
+            brain = get_internet_brain()
+            result = brain.research(topic, max_pages=int(max_pages))
+            if result.get("error"):
+                return json.dumps({"error": result["error"]})
+            summary = result.get("summary", "No summary generated")
+            sources = result.get("sources", [])
+            chunks = result.get("chunks_stored", 0)
+            lines = [
+                f"Research: {topic}",
+                f"Pages researched: {result.get('pages_researched', 0)}",
+                f"Chunks stored: {chunks}",
+                f"\nSummary:\n{summary}",
+            ]
+            if sources:
+                lines.append("\nSources:")
+                for s in sources:
+                    lines.append(f"  - {s.get('title', '')} ({s.get('url', '')})")
+            return "\n".join(lines)
+        except Exception as e:
+            return f"Research error: {e}"
+
+    def _tool_monitor_topic(self, topic: str, interval: int = 60) -> str:
+        """Set up topic monitoring."""
+        try:
+            from modules.internet_brain import get_internet_brain
+            brain = get_internet_brain()
+            result = brain.monitor_topic(topic, interval_minutes=int(interval))
+            return json.dumps(result, indent=2)
+        except Exception as e:
+            return f"Monitor error: {e}"
+
+    def _tool_learn_from_url(self, url: str, depth: int = 1) -> str:
+        """Crawl and learn from a URL."""
+        try:
+            from modules.web_crawler import get_crawler
+            crawler = get_crawler()
+            result = crawler.crawl_and_learn(url, depth=int(depth))
+            lines = [
+                f"Crawled: {url}",
+                f"Pages: {result.get('pages_crawled', 0)}",
+                f"Chunks ingested: {result.get('chunks_ingested', 0)}",
+            ]
+            for p in result.get("pages", []):
+                lines.append(f"  - {p.get('title', 'Untitled')} ({p.get('url', '')}): {p.get('chunks', 0)} chunks")
+            return "\n".join(lines)
+        except Exception as e:
+            return f"Crawl error: {e}"
+
+    def _tool_generate_brief(self) -> str:
+        """Generate morning intelligence brief."""
+        try:
+            from modules.internet_brain import get_internet_brain
+            brain = get_internet_brain()
+            return brain.morning_brief()
+        except Exception as e:
+            return f"Brief generation error: {e}"
 
     def _tool_shell(self, command: str) -> str:
         """Execute shell command with safety limits."""

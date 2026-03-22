@@ -27,6 +27,12 @@ try:
 except ImportError:
     _HUMAN_CORE_AVAILABLE = False
 
+try:
+    from modules.internet_brain import get_internet_brain, InternetBrain
+    _INTERNET_BRAIN_AVAILABLE = True
+except ImportError:
+    _INTERNET_BRAIN_AVAILABLE = False
+
 logger = logging.getLogger("Bruce.Agent")
 
 
@@ -63,14 +69,23 @@ class BruceAgent:
         # Human-core (emotion, empathy, adaptation, translation, personality)
         self.human_core: Optional["HumanCore"] = None
 
+        # Internet Brain (continuous data consumption + web research)
+        self.internet_brain: Optional["InternetBrain"] = None
+
         # Initialize
         self._connect_llm()
         self.react = ReActAgent(llm_fn=self._llm_fn, tools=self.tools)
         self._init_human_core()
+        self._init_internet_brain()
         self._spawn_default_agents()
         self._setup_default_watchers()
 
-        logger.info(f"Bruce Agent initialized | LLM: {self._llm_name} | Status: {self.identity.status}")
+        logger.info(
+            "Bruce Agent initialized | LLM: %s | InternetBrain: %s | Status: %s",
+            self._llm_name,
+            "online" if self.internet_brain else "offline",
+            self.identity.status,
+        )
 
     def _connect_llm(self):
         """Connect to the best available LLM (Ollama, OpenAI, Anthropic, or fallback)."""
@@ -115,6 +130,43 @@ class BruceAgent:
         except Exception as exc:
             logger.warning("Failed to initialize HumanCore: %s", exc)
             self.human_core = None
+
+    def _init_internet_brain(self):
+        """Initialize the Internet Brain for continuous data consumption."""
+        if not _INTERNET_BRAIN_AVAILABLE:
+            logger.debug("internet_brain module not available -- running without it.")
+            return
+        try:
+            self.internet_brain = get_internet_brain()
+            # Check connectivity and log status
+            connected = self.internet_brain.connection.is_connected()
+            if connected:
+                self.internet_brain.connection.on_connect()
+            logger.info(
+                "InternetBrain initialized -- feeds: %s, connected: %s",
+                "ready" if connected else "waiting",
+                connected,
+            )
+        except Exception as exc:
+            logger.warning("Failed to initialize InternetBrain: %s", exc)
+            self.internet_brain = None
+
+    def start_internet_brain(self):
+        """Start the InternetBrain background feeds (call from async context)."""
+        if self.internet_brain is None:
+            return {"status": "not_available"}
+        import asyncio
+        try:
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                asyncio.ensure_future(self.internet_brain.start())
+                return {"status": "started_async"}
+            else:
+                loop.run_until_complete(self.internet_brain.start())
+                return {"status": "started"}
+        except Exception as e:
+            logger.warning("Could not start InternetBrain: %s", e)
+            return {"status": "error", "error": str(e)}
 
     def _spawn_default_agents(self):
         """Spawn Bruce's default team of micro-agents."""
@@ -492,7 +544,7 @@ class BruceAgent:
 
     def status(self) -> dict:
         """Full status report of Bruce."""
-        return {
+        status = {
             "identity": self.identity.to_dict(),
             "llm": self._llm_name,
             "agents": self.factory.get_stats(),
@@ -503,6 +555,9 @@ class BruceAgent:
             "conversation_length": len(self.conversation_history),
             "active": self.active,
         }
+        if self.internet_brain:
+            status["internet_brain"] = self.internet_brain.get_status()
+        return status
 
     def reflect(self) -> str:
         """Bruce reflects on his current state and recent activity."""
