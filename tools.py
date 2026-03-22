@@ -244,6 +244,44 @@ class ToolRegistry:
              "change": "For price alerts: 24h change %"},
         )
 
+        # === CoinGecko ===
+        self.register(
+            "coingecko_price",
+            self._tool_coingecko_price,
+            "Get current crypto price from CoinGecko (free). Use CoinGecko IDs: bitcoin, ethereum, solana, etc.",
+            {"coin": "CoinGecko coin ID (e.g. bitcoin, ethereum, solana)"},
+        )
+
+        self.register(
+            "coingecko_trending",
+            self._tool_coingecko_trending,
+            "Get trending coins on CoinGecko right now.",
+            {},
+        )
+
+        # === SEC EDGAR ===
+        self.register(
+            "sec_search",
+            self._tool_sec_search,
+            "Search SEC EDGAR filings for a company. Free, no key needed.",
+            {"company": "Company name or ticker (e.g. Apple, AAPL)"},
+        )
+
+        # === Macro Data ===
+        self.register(
+            "macro_fear_greed",
+            self._tool_macro_fear_greed,
+            "Get Crypto Fear & Greed Index (0=extreme fear, 100=extreme greed).",
+            {},
+        )
+
+        self.register(
+            "macro_yields",
+            self._tool_macro_yields,
+            "Get US Treasury yields (2Y, 5Y, 10Y, 30Y) and yield curve status.",
+            {},
+        )
+
         # === System ===
         self.register(
             "shell",
@@ -486,6 +524,51 @@ class ToolRegistry:
             return f"Telegram send failed: {result.get('error', 'unknown error')}"
         except Exception as e:
             return f"Telegram alert error: {e}"
+
+    def _tool_coingecko_price(self, coin: str) -> str:
+        """Get crypto price from CoinGecko."""
+        try:
+            from modules.coingecko import get_price
+            result = get_price(coin)
+            return json.dumps(result, indent=2)
+        except Exception as e:
+            return json.dumps({"error": str(e), "coin": coin})
+
+    def _tool_coingecko_trending(self) -> str:
+        """Get trending coins from CoinGecko."""
+        try:
+            from modules.coingecko import get_trending
+            result = get_trending()
+            return json.dumps(result, indent=2)
+        except Exception as e:
+            return json.dumps({"error": str(e)})
+
+    def _tool_sec_search(self, company: str) -> str:
+        """Search SEC EDGAR filings."""
+        try:
+            from modules.edgar_sec import search_filings
+            result = search_filings(company)
+            return json.dumps(result, indent=2)
+        except Exception as e:
+            return json.dumps({"error": str(e), "company": company})
+
+    def _tool_macro_fear_greed(self) -> str:
+        """Get Crypto Fear & Greed Index."""
+        try:
+            from modules.macro_data import get_fear_greed
+            result = get_fear_greed()
+            return json.dumps(result, indent=2)
+        except Exception as e:
+            return json.dumps({"error": str(e)})
+
+    def _tool_macro_yields(self) -> str:
+        """Get US Treasury yields."""
+        try:
+            from modules.macro_data import get_treasury_yields
+            result = get_treasury_yields()
+            return json.dumps(result, indent=2)
+        except Exception as e:
+            return json.dumps({"error": str(e)})
 
     def _tool_shell(self, command: str) -> str:
         """Execute shell command with safety limits."""

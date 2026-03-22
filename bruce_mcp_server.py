@@ -453,6 +453,187 @@ def get_market_news() -> dict:
 
 
 # ============================================================
+#  COINGECKO DATA TOOLS
+# ============================================================
+
+@mcp.tool()
+def get_coin_data(coin_id: str = "bitcoin") -> dict:
+    """Get real-time crypto data from CoinGecko (FREE, no API key).
+    Returns price, market cap, 24h volume, 24h change.
+    Use CoinGecko IDs: bitcoin, ethereum, solana, cardano, dogecoin, etc.
+    For multiple coins, use comma-separated IDs: bitcoin,ethereum,solana
+    """
+    try:
+        from modules.coingecko import get_price, get_prices
+        ids = [c.strip() for c in coin_id.split(",")]
+        if len(ids) == 1:
+            return get_price(ids[0])
+        else:
+            return get_prices(ids)
+    except Exception as e:
+        logger.error(f"get_coin_data error: {e}")
+        return {"error": str(e), "coin_id": coin_id}
+
+
+@mcp.tool()
+def get_trending_coins() -> dict:
+    """Get trending coins on CoinGecko (based on search popularity).
+    Also includes the Crypto Fear & Greed Index.
+    No API key needed.
+    """
+    try:
+        from modules.coingecko import get_trending, get_fear_greed_index
+        trending = get_trending()
+        fear_greed = get_fear_greed_index()
+        trending["fear_greed"] = fear_greed
+        return trending
+    except Exception as e:
+        logger.error(f"get_trending_coins error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_coin_history(coin_id: str = "bitcoin", days: int = 30) -> dict:
+    """Get historical price data for a crypto coin from CoinGecko.
+    days: 1, 7, 14, 30, 90, 180, 365
+    Returns price data points with start/end prices and % change.
+    """
+    try:
+        from modules.coingecko import get_historical
+        return get_historical(coin_id, days=days)
+    except Exception as e:
+        logger.error(f"get_coin_history error: {e}")
+        return {"error": str(e), "coin_id": coin_id}
+
+
+@mcp.tool()
+def get_top_crypto(limit: int = 20) -> dict:
+    """Get top cryptocurrencies by market cap from CoinGecko.
+    Returns rank, name, price, market cap, 24h and 7d changes.
+    """
+    try:
+        from modules.coingecko import get_top_coins
+        return get_top_coins(limit=limit)
+    except Exception as e:
+        logger.error(f"get_top_crypto error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def search_crypto(query: str) -> dict:
+    """Search for a cryptocurrency by name or symbol on CoinGecko.
+    Returns matching coins with their CoinGecko IDs.
+    Example: search_crypto('sol') -> finds Solana
+    """
+    try:
+        from modules.coingecko import search_coin
+        return search_coin(query)
+    except Exception as e:
+        return {"error": str(e), "query": query}
+
+
+# ============================================================
+#  SEC EDGAR TOOLS
+# ============================================================
+
+@mcp.tool()
+def search_sec_filings(company: str, filing_type: str = "10-K") -> dict:
+    """Search SEC EDGAR for company filings (FREE, no API key).
+    company: Company name or ticker (e.g. 'Apple', 'AAPL', 'Tesla')
+    filing_type: '10-K' (annual), '10-Q' (quarterly), '8-K' (events), 'S-1' (IPO)
+    """
+    try:
+        from modules.edgar_sec import search_filings
+        return search_filings(company, filing_type=filing_type)
+    except Exception as e:
+        logger.error(f"search_sec_filings error: {e}")
+        return {"error": str(e), "company": company}
+
+
+@mcp.tool()
+def get_sec_company(ticker: str) -> dict:
+    """Get SEC-registered company details by ticker.
+    Returns CIK, name, SIC code, address, filing count.
+    Example: get_sec_company('AAPL')
+    """
+    try:
+        from modules.edgar_sec import get_company_info
+        return get_company_info(ticker)
+    except Exception as e:
+        logger.error(f"get_sec_company error: {e}")
+        return {"error": str(e), "ticker": ticker}
+
+
+@mcp.tool()
+def get_sec_recent(ticker: str, limit: int = 10) -> dict:
+    """Get recent SEC filings for a company by ticker.
+    Returns filing type, date, description, and URL for each.
+    """
+    try:
+        from modules.edgar_sec import get_recent_filings
+        return get_recent_filings(ticker, limit=limit)
+    except Exception as e:
+        logger.error(f"get_sec_recent error: {e}")
+        return {"error": str(e), "ticker": ticker}
+
+
+# ============================================================
+#  MACRO ECONOMIC DATA TOOLS
+# ============================================================
+
+@mcp.tool()
+def get_macro_indicators() -> dict:
+    """Get a comprehensive macro dashboard with all key indicators.
+    Includes: Crypto Fear & Greed, VIX, DXY (Dollar Index),
+    Treasury Yields (2Y/5Y/10Y/30Y), yield curve status, Fed rate.
+    Free data from Yahoo Finance and alternative.me.
+    """
+    try:
+        from modules.macro_data import get_macro_summary
+        return get_macro_summary()
+    except Exception as e:
+        logger.error(f"get_macro_indicators error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_vix() -> dict:
+    """Get the CBOE Volatility Index (VIX) - the 'fear gauge'.
+    Returns current VIX value, change, and market regime interpretation.
+    <12 = extremely low, <20 = calm, <25 = moderate, <30 = high, 30+ = extreme fear.
+    """
+    try:
+        from modules.macro_data import get_vix as _get_vix
+        return _get_vix()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_dollar_index() -> dict:
+    """Get the US Dollar Index (DXY).
+    Rising DXY = stronger dollar = typically bearish for crypto and commodities.
+    """
+    try:
+        from modules.macro_data import get_dxy
+        return get_dxy()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_yields() -> dict:
+    """Get US Treasury yields (2Y, 5Y, 10Y, 30Y) and yield curve status.
+    Inverted yield curve (10Y < 2Y) = recession signal.
+    """
+    try:
+        from modules.macro_data import get_treasury_yields
+        return get_treasury_yields()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# ============================================================
 #  SHIPPING INTELLIGENCE TOOLS
 # ============================================================
 
@@ -776,5 +957,5 @@ def load_plugin_tools() -> dict:
 if __name__ == "__main__":
     logger.info("Starting Bruce AI MCP Server...")
     logger.info(f"Project root: {PROJECT_ROOT}")
-    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler")
+    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro")
     mcp.run(transport="stdio")
