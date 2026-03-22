@@ -634,6 +634,219 @@ def get_yields() -> dict:
 
 
 # ============================================================
+#  DEFI DATA TOOLS (DeFiLlama — free, no key)
+# ============================================================
+
+@mcp.tool()
+def get_defi_tvl(protocol: str = "") -> dict:
+    """Get DeFi TVL data from DeFiLlama (FREE, no API key).
+    If protocol is given (e.g. 'aave', 'uniswap', 'lido'), returns that protocol's TVL.
+    If empty, returns total TVL across all chains.
+    """
+    try:
+        from modules.defi_data import get_protocol_tvl, get_tvl_all
+        if protocol:
+            return get_protocol_tvl(protocol)
+        return get_tvl_all()
+    except Exception as e:
+        logger.error(f"get_defi_tvl error: {e}")
+        return {"error": str(e), "protocol": protocol}
+
+
+@mcp.tool()
+def get_top_defi_protocols(limit: int = 20) -> dict:
+    """Get top DeFi protocols ranked by TVL from DeFiLlama.
+    Returns name, TVL, category, chains, and 1d/7d changes.
+    """
+    try:
+        from modules.defi_data import get_top_protocols
+        return get_top_protocols(limit=limit)
+    except Exception as e:
+        logger.error(f"get_top_defi_protocols error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_chain_defi_tvl(chain: str = "ethereum") -> dict:
+    """Get DeFi TVL for a specific blockchain.
+    Examples: ethereum, solana, arbitrum, polygon, avalanche, bsc
+    """
+    try:
+        from modules.defi_data import get_chain_tvl
+        return get_chain_tvl(chain)
+    except Exception as e:
+        return {"error": str(e), "chain": chain}
+
+
+@mcp.tool()
+def get_stablecoin_data() -> dict:
+    """Get stablecoin market caps from DeFiLlama.
+    Returns top stablecoins with mcap, peg type, and chains.
+    """
+    try:
+        from modules.defi_data import get_stablecoin_mcap
+        return get_stablecoin_mcap()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_defi_yields(pool_type: str = "stable") -> dict:
+    """Get DeFi yield farming opportunities from DeFiLlama.
+    pool_type: 'stable' (stablecoin pools), 'all', or a project name like 'aave'.
+    Returns top yields sorted by APY.
+    """
+    try:
+        from modules.defi_data import get_yields
+        return get_yields(pool_type=pool_type)
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# ============================================================
+#  ON-CHAIN DATA TOOLS (free, no keys)
+# ============================================================
+
+@mcp.tool()
+def get_btc_onchain() -> dict:
+    """Get comprehensive BTC on-chain data (FREE, no API key).
+    Combines: network stats (hashrate, difficulty, block height),
+    recommended fees (sat/vB), and mempool stats.
+    Sources: blockchain.info + mempool.space
+    """
+    try:
+        from modules.onchain_data import get_btc_onchain_summary
+        return get_btc_onchain_summary()
+    except Exception as e:
+        logger.error(f"get_btc_onchain error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_eth_gas() -> dict:
+    """Get current ETH gas prices in gwei (safe, proposed, fast).
+    Also returns ETH price in USD and BTC.
+    Source: Etherscan (free tier, no key needed for basic).
+    """
+    try:
+        from modules.onchain_data import get_gas_price, get_eth_price
+        gas = get_gas_price()
+        price = get_eth_price()
+        return {"gas": gas, "price": price}
+    except Exception as e:
+        logger.error(f"get_eth_gas error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_btc_address(address: str) -> dict:
+    """Look up a BTC address: balance, total received/sent, tx count.
+    Source: blockchain.info (free, no key).
+    """
+    try:
+        from modules.onchain_data import get_btc_address_info
+        return get_btc_address_info(address)
+    except Exception as e:
+        return {"error": str(e), "address": address}
+
+
+@mcp.tool()
+def get_btc_fees() -> dict:
+    """Get recommended BTC transaction fees in sat/vB.
+    Returns fastest, half-hour, hour, economy, and minimum fee levels.
+    Source: mempool.space (free, no key).
+    """
+    try:
+        from modules.onchain_data import get_btc_fees as _get_btc_fees
+        return _get_btc_fees()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# ============================================================
+#  YAHOO FINANCE TOOLS (free, no key)
+# ============================================================
+
+@mcp.tool()
+def get_stock(ticker: str) -> dict:
+    """Get real-time stock/ETF price from Yahoo Finance (FREE).
+    Examples: AAPL, MSFT, GOOGL, TSLA, NVDA, SPY, QQQ
+    """
+    try:
+        from modules.yahoo_finance import get_stock_price
+        return get_stock_price(ticker)
+    except Exception as e:
+        logger.error(f"get_stock error: {e}")
+        return {"error": str(e), "ticker": ticker}
+
+
+@mcp.tool()
+def get_forex(pair: str) -> dict:
+    """Get forex exchange rate from Yahoo Finance (FREE).
+    Examples: EURUSD, GBPUSD, USDJPY, or EUR/USD format.
+    """
+    try:
+        from modules.yahoo_finance import get_forex_rate
+        return get_forex_rate(pair)
+    except Exception as e:
+        logger.error(f"get_forex error: {e}")
+        return {"error": str(e), "pair": pair}
+
+
+@mcp.tool()
+def get_commodity(name: str) -> dict:
+    """Get commodity price from Yahoo Finance (FREE).
+    Examples: gold, silver, oil, crude, natgas, copper, platinum
+    """
+    try:
+        from modules.yahoo_finance import get_commodity_price
+        return get_commodity_price(name)
+    except Exception as e:
+        logger.error(f"get_commodity error: {e}")
+        return {"error": str(e), "commodity": name}
+
+
+@mcp.tool()
+def get_market_overview() -> dict:
+    """Get a full market overview combining all free data sources.
+    Returns: S&P 500, Dow, Nasdaq, VIX, Gold, Oil, BTC, ETH
+    with prices and daily changes. Source: Yahoo Finance (free).
+    """
+    try:
+        from modules.yahoo_finance import get_market_overview as _get_market_overview
+        return _get_market_overview()
+    except Exception as e:
+        logger.error(f"get_market_overview error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def get_stock_history(ticker: str, period: str = "1mo") -> dict:
+    """Get historical price data for any ticker from Yahoo Finance.
+    period: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
+    Returns OHLCV data with start/end prices and % change.
+    """
+    try:
+        from modules.yahoo_finance import get_historical
+        return get_historical(ticker, period=period)
+    except Exception as e:
+        logger.error(f"get_stock_history error: {e}")
+        return {"error": str(e), "ticker": ticker}
+
+
+@mcp.tool()
+def get_earnings() -> dict:
+    """Get upcoming earnings dates for major stocks.
+    Checks: AAPL, MSFT, GOOGL, AMZN, NVDA, META, TSLA, JPM, BAC, WMT
+    """
+    try:
+        from modules.yahoo_finance import get_earnings_calendar
+        return get_earnings_calendar()
+    except Exception as e:
+        return {"error": str(e)}
+
+
+# ============================================================
 #  SHIPPING INTELLIGENCE TOOLS
 # ============================================================
 
@@ -957,5 +1170,5 @@ def load_plugin_tools() -> dict:
 if __name__ == "__main__":
     logger.info("Starting Bruce AI MCP Server...")
     logger.info(f"Project root: {PROJECT_ROOT}")
-    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro")
+    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro, defi, onchain, yahoo_finance")
     mcp.run(transport="stdio")
