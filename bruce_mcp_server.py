@@ -1283,11 +1283,87 @@ def load_plugin_tools() -> dict:
 
 
 # ============================================================
+#  TOKEN SNIPER TOOLS
+# ============================================================
+
+@mcp.tool()
+def scan_new_tokens(chain: str = "solana") -> dict:
+    """Scan for newly launched tokens on a blockchain.
+    Detects new liquidity pools and token launches via DexScreener + GeckoTerminal.
+    Chains: solana, ethereum, bsc, base, arbitrum, polygon, avalanche, optimism
+    """
+    try:
+        from modules.token_sniper import scan_new_tokens as _scan
+        return _scan(chain=chain, max_results=20)
+    except Exception as e:
+        logger.error(f"scan_new_tokens error: {e}")
+        return {"error": str(e), "chain": chain}
+
+
+@mcp.tool()
+def analyze_token(address: str, chain: str = "ethereum") -> dict:
+    """Run full safety analysis on a token contract.
+    Checks: honeypot, mint function, owner privileges, taxes, LP lock, holder distribution.
+    Returns a rug score (0=safe, 100=scam) and detailed red/green flags.
+    Uses GoPlus Security API (free). Supports EVM chains + Solana.
+    """
+    try:
+        from modules.token_sniper import analyze_token as _analyze
+        return _analyze(address=address, chain=chain)
+    except Exception as e:
+        logger.error(f"analyze_token error: {e}")
+        return {"error": str(e), "address": address, "chain": chain}
+
+
+@mcp.tool()
+def trending_tokens(chain: str = "solana") -> dict:
+    """Get trending tokens and pools on a blockchain.
+    Shows: trending pools (GeckoTerminal), boosted tokens (DexScreener),
+    and volume spike anomalies. Great for finding what's hot right now.
+    """
+    try:
+        from modules.token_sniper import trending_tokens as _trending
+        return _trending(chain=chain, limit=20)
+    except Exception as e:
+        logger.error(f"trending_tokens error: {e}")
+        return {"error": str(e), "chain": chain}
+
+
+@mcp.tool()
+def sniper_status() -> dict:
+    """Get the token sniper engine status.
+    Shows: active/inactive state, paper/live mode, open positions,
+    configuration (min liquidity, max rug score, exit criteria).
+    The sniper is ALWAYS in paper mode by default (no real trades).
+    """
+    try:
+        from modules.token_sniper import sniper_status as _status
+        return _status()
+    except Exception as e:
+        logger.error(f"sniper_status error: {e}")
+        return {"error": str(e)}
+
+
+@mcp.tool()
+def sniper_scan(chain: str = "solana", max_tokens: int = 10) -> dict:
+    """Full sniper scan: detect new tokens, analyze safety, and evaluate opportunities.
+    For each new token found, runs safety analysis and produces a SNIPE/WATCH/SKIP decision.
+    Paper mode only — simulates positions without executing real trades.
+    """
+    try:
+        from modules.token_sniper import sniper_scan as _scan
+        return _scan(chain=chain, max_tokens=max_tokens)
+    except Exception as e:
+        logger.error(f"sniper_scan error: {e}")
+        return {"error": str(e), "chain": chain}
+
+
+# ============================================================
 #  RUN SERVER
 # ============================================================
 
 if __name__ == "__main__":
     logger.info("Starting Bruce AI MCP Server...")
     logger.info(f"Project root: {PROJECT_ROOT}")
-    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro, defi, onchain, yahoo_finance, internet_brain, web_crawler")
+    logger.info("Tools: market, trading, knowledge, agents, news, shipping, alerts, scheduler, coingecko, sec, macro, defi, onchain, yahoo_finance, internet_brain, web_crawler, token_sniper")
     mcp.run(transport="stdio")

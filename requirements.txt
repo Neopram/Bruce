@@ -53,6 +53,18 @@ web3==7.9.0
 
 # --- NLP & Text ---
 beautifulsoup4==4.13.3
+feedparser>=6.0.0
+lxml>=4.9.0
+
+# --- Telegram ---
+python-telegram-bot
+
+# --- Data ---
+yfinance
+feedparser
+
+# --- Vector DB ---
+chromadb
 
 # --- Monitoring ---
 prometheus-client==0.21.1
