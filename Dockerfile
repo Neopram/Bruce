@@ -28,8 +28,10 @@ COPY ai/ ./ai/
 COPY ai_core/ ./ai_core/
 COPY modules/ ./modules/
 COPY plugins/ ./plugins/
+COPY config/ ./config/
 COPY data/ ./data/
 COPY scripts/ ./scripts/
+COPY backend/ ./backend/
 
 # Create directories for runtime data
 RUN mkdir -p /app/logs /app/uploads /app/models

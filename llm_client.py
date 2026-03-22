@@ -35,8 +35,9 @@ class UnifiedLLMClient:
     def _detect_backend(self):
         """Auto-detect the best available LLM backend."""
         # 1. Check Ollama
+        self._ollama_host = os.environ.get("OLLAMA_HOST", "http://localhost:11434").rstrip("/")
         try:
-            r = requests.get("http://localhost:11434/api/tags", timeout=3)
+            r = requests.get(f"{self._ollama_host}/api/tags", timeout=3)
             if r.status_code == 200:
                 models = [m["name"] for m in r.json().get("models", [])]
                 if models:
@@ -123,7 +124,7 @@ class UnifiedLLMClient:
             }
             if system:
                 payload["system"] = system
-            r = requests.post("http://localhost:11434/api/generate", json=payload, timeout=120)
+            r = requests.post(f"{self._ollama_host}/api/generate", json=payload, timeout=120)
             if r.status_code == 200:
                 return r.json().get("response", "").strip()
         except Exception as e:
@@ -132,7 +133,7 @@ class UnifiedLLMClient:
 
     def _ollama_chat(self, messages, temperature, max_tokens):
         try:
-            r = requests.post("http://localhost:11434/api/chat", json={
+            r = requests.post(f"{self._ollama_host}/api/chat", json={
                 "model": self.model, "messages": messages, "stream": False,
                 "options": {"temperature": temperature, "num_predict": max_tokens},
             }, timeout=120)
